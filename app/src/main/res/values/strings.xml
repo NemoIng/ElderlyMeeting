@@ -10,7 +10,6 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="back">back</string>
-    <string name="back">back</string>
     <string name="login">login</string>
     <string name="create_new_account">create new account</string>
     <string name="title_activity_home">MainActivity</string>
