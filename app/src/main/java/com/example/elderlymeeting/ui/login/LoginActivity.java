@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.example.elderlymeeting.MainActivity;
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.home.HomeFragment;
+import com.example.elderlymeeting.ui.home.HomeViewModel;
 import com.example.elderlymeeting.ui.login.LoginViewModel;
 import com.example.elderlymeeting.ui.login.LoginViewModelFactory;
 
@@ -30,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private LoginViewModel loginViewModel;
 
     Button backBtn;
+    Button adminBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,20 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this , MainActivity.class));
               }
-        });
+        }
+
+        );
+
+        adminBtn = findViewById(R.id.admin);
+
+        adminBtn.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           startActivity(new Intent(LoginActivity.this , HomeViewModel.class));
+                                       }
+                                   }
+
+        );
 
 
                 loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
@@ -133,8 +149,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUiWithUser(LoggedInUserView model) {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(LoginActivity.this, HomeFragment.class);
+        startActivity(intent);
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
