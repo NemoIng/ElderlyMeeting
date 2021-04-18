@@ -1,4 +1,4 @@
-package  com.example.elderlymeeting.ui.login;
+package com.example.elderlymeeting.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

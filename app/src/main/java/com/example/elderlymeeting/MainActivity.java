@@ -1,16 +1,21 @@
 package com.example.elderlymeeting;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 
-import com.example.elderlymeeting.ui.home.HomeFragment;
 import com.example.elderlymeeting.ui.login.LoginActivity;
 
+
 public class MainActivity extends AppCompatActivity {
+
 
     Button signInBtn;
     Button homeBtn;
@@ -24,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         signInBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                Intent login = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(login);
             }
         });
 
@@ -33,8 +38,11 @@ public class MainActivity extends AppCompatActivity {
         homeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                HomeFragment homeFragment = new HomeFragment();
+                Intent home = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(home);
             }
         });
+
     }
+
 }

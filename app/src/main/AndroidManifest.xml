@@ -10,11 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElderlyMeeting">
         <activity
-            android:name=".home"
-            android:label="@string/title_activity_home"></activity>
-        <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login"></activity>
+        <activity android:name=".HomeActivity" />
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home" />
+        <activity
+            android:name=".Home2"
+            android:label="@string/title_activity_home2" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
