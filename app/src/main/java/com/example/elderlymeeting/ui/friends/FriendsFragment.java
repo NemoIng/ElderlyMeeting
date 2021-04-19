@@ -14,20 +14,9 @@ import com.example.elderlymeeting.R;
 
 public class FriendsFragment extends Fragment {
 
-    private FriendsViewModel friendsViewModel;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        friendsViewModel =
-                new ViewModelProvider(this).get(FriendsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_friends, container, false);
-        final TextView textView = root.findViewById(R.id.text_friends);
-        friendsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_friends, container, false);
     }
 }

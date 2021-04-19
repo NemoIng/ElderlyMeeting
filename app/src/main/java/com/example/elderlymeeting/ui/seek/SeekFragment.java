@@ -16,20 +16,9 @@ import com.example.elderlymeeting.R;
 
 public class SeekFragment extends Fragment {
 
-    private SeekViewModel seekViewModel;
-
-    public View onCreateView(@NonNull LayoutInflater inflater,
-            ViewGroup container, Bundle savedInstanceState) {
-        seekViewModel =
-                new ViewModelProvider(this).get(SeekViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_seek, container, false);
-        final TextView textView = root.findViewById(R.id.text_seek);
-        seekViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
-        return root;
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_seek, container, false);
     }
 }
