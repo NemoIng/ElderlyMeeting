@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "730957727324",
+    "project_id": "elderly-meeting",
+    "storage_bucket": "elderly-meeting.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:730957727324:android:f21afeb45771c53bf14899",
+        "android_client_info": {
+          "package_name": "com.example.elderlymeeting"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "730957727324-d3p0r7oup808t8fqdtcdukg996qd2142.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcSr1i1Iu9L1g4-rX9JO9ewUZKuAIZS9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "730957727324-d3p0r7oup808t8fqdtcdukg996qd2142.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
