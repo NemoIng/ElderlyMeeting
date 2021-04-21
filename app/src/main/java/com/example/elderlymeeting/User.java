@@ -2,14 +2,14 @@ package com.example.elderlymeeting;
 
 public class User {
 
-    public  String fullname, age, email;
+    public  String fullName, age, email;
 
     public User(){
 
     }
 
-    public User (String fullname, String age, String email){
-        this.fullname = fullname;
+    public User (String fullName, String age, String email){
+        this.fullName = fullName;
         this.age = age;
         this.email = email;
     }

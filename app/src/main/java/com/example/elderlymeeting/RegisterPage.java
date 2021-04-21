@@ -20,6 +20,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static java.lang.Integer.parseInt;
+
 public class RegisterPage extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextTextEmailAddress, editTextTextPassword, editTextTextPersonName, editTextNumber, editTextTextPassword2;
@@ -64,6 +66,11 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             return;
         }
         if(age.isEmpty()){
+            editTextNumber.setError("you must enter your age!");
+            editTextNumber.requestFocus();
+            return;
+        }
+        if(parseInt(age) < 18){
             editTextNumber.setError("you must be 18 years or older!");
             editTextNumber.requestFocus();
             return;
@@ -109,12 +116,12 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>(){
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if(task.isSuccessful()){
                                         Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.VISIBLE);
+                                        progressBar.setVisibility(View.GONE);
 
                                         // redirect to login
                                     }

@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "730957727324",
+    "firebase_url": "https://elderly-meeting-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "elderly-meeting",
     "storage_bucket": "elderly-meeting.appspot.com"
   },
