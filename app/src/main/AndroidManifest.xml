@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElderlyMeeting">
-        <activity android:name=".RegisterPage"></activity>
+        <activity android:name=".SelectPff"></activity>
+        <activity android:name=".RegisterPage" />
         <activity
             android:name=".ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
