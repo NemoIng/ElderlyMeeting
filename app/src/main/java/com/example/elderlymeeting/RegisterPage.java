@@ -115,17 +115,17 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                 .setValue(user).addOnCompleteListener(register -> {
-                                    if(register.isSuccessful()){
-                                        Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
+                            if(register.isSuccessful()){
+                                Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
 
-                                        // redirect to login
-                                    }
-                                    else{
-                                        Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                    }
-                                });
+                                // redirect to login
+                            }
+                            else{
+                                Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                                progressBar.setVisibility(View.GONE);
+                            }
+                        });
                     }
                     else{
                         Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
