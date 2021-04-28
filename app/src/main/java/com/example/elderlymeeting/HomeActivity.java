@@ -9,6 +9,7 @@ import android.view.MenuItem;
 
 import com.example.elderlymeeting.ui.friends.FriendsFragment;
 import com.example.elderlymeeting.ui.home.HomeFragment;
+import com.example.elderlymeeting.ui.myprofile.MyProfileFragment;
 import com.example.elderlymeeting.ui.seek.SeekFragment;
 import com.example.elderlymeeting.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -43,6 +44,9 @@ public class HomeActivity extends AppCompatActivity {
                             break;
                         case R.id.settings:
                             selectedFragment = new SettingsFragment();
+                            break;
+                        case R.id.myProfile:
+                            selectedFragment = new MyProfileFragment();
                             break;
                     }
 
