@@ -134,7 +134,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                 });
     }
 
-//hallo
 
     @Override
     public void onClick(View v) {
