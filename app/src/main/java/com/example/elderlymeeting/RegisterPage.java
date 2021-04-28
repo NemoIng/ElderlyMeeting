@@ -119,7 +119,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                         Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
 
-                                        // redirect to login
+                                        startActivity(new Intent(this, SelectPff.class));
                                     }
                                     else{
                                         Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
