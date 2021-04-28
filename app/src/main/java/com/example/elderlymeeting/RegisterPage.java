@@ -75,6 +75,11 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             editTextNumber.requestFocus();
             return;
         }
+        if(parseInt(age) > 150){
+            editTextNumber.setError("please fill in your real age!");
+            editTextNumber.requestFocus();
+            return;
+        }
         if(password.isEmpty()){
             editTextTextPassword.setError("Please enter a password!");
             editTextTextPassword.requestFocus();
@@ -110,7 +115,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(auth -> {
                     if(auth.isSuccessful()){
-                        User user = new User(fullName, age, email);
+                        User user = new User(fullName, age, email, null, null, null);
 
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
