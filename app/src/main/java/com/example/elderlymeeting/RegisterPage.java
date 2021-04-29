@@ -123,8 +123,12 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                     if(register.isSuccessful()){
                                         Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
-
-                                        startActivity(new Intent(this, SelectPff.class));
+                                        Intent intent = new Intent(this, SelectPff.class);
+                                        String Uid = FirebaseDatabase.getInstance().getReference("Users")
+                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        //carry login information
+                                        intent.putExtra(user, Uid);
+                                        startActivity(intent);
                                     }
                                     else{
                                         Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
