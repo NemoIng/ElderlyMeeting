@@ -126,6 +126,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                         Intent intent = new Intent(this, SelectPff.class);
                                         String Uid = FirebaseDatabase.getInstance().getReference("Users")
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid();
+                                        //carry login information
                                         intent.putExtra(user, Uid);
                                         startActivity(intent);
                                     }
