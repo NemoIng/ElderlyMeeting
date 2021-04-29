@@ -1,6 +1,5 @@
 package com.example.elderlymeeting;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -10,13 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.elderlymeeting.ui.login.LoginActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
+import com.example.elderlymeeting.ui.Users.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -115,11 +110,11 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(auth -> {
                     if(auth.isSuccessful()){
-                        User user = new User(fullName, age, email, null, null, null);
+                        Users users = new Users(fullName, age, email, null, null, null);
 
                         FirebaseDatabase.getInstance().getReference("Users")
                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(user).addOnCompleteListener(register -> {
+                                .setValue(users).addOnCompleteListener(register -> {
                                     if(register.isSuccessful()){
                                         Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
                                         progressBar.setVisibility(View.GONE);
@@ -127,7 +122,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                         String Uid = FirebaseDatabase.getInstance().getReference("Users")
                                                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid();
                                         //carry login information
-                                        intent.putExtra(user, Uid);
+                                        intent.putExtra(String.valueOf(users), Uid);
                                         startActivity(intent);
                                     }
                                     else{
