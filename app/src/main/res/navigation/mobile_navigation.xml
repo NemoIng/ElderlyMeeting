@@ -3,19 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
-
-    <fragment
-        android:id="@+id/navigation_home"
-        android:name="com.example.elderlymeeting.ui.home.HomeFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
-
-    <fragment
-        android:id="@+id/navigation_seek"
-        android:name="com.example.elderlymeeting.ui.seek.SeekFragment"
-        android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_seek" />
+    app:startDestination="@+id/navigation_friends">
 
     <fragment
         android:id="@+id/navigation_friends"
@@ -24,8 +12,22 @@
         tools:layout="@layout/fragment_friends" />
 
     <fragment
+        android:id="@+id/navigation_seek"
+        android:name="com.example.elderlymeeting.ui.seek.SeekFragment"
+        android:label="@string/title_dashboard"
+        tools:layout="@layout/fragment_seek" />
+
+    <fragment
+        android:id="@+id/navigation_myProfile"
+        android:name="com.example.elderlymeeting.ui.myProfile.MyProfileFragment"
+        android:label="@string/title_settings"
+        tools:layout="@layout/fragment_my_profile" />
+
+    <fragment
         android:id="@+id/navigation_settings"
         android:name="com.example.elderlymeeting.ui.settings.SettingsFragment"
         android:label="@string/title_settings"
         tools:layout="@layout/fragment_settings" />
+
+
 </navigation>

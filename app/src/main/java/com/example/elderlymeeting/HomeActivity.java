@@ -1,4 +1,4 @@
-package com.example.elderlymeeting;
+    package com.example.elderlymeeting;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,8 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.example.elderlymeeting.ui.friends.FriendsFragment;
-import com.example.elderlymeeting.ui.home.HomeFragment;
-import com.example.elderlymeeting.ui.myprofile.MyProfileFragment;
+import com.example.elderlymeeting.ui.myProfile.MyProfileFragment;
 import com.example.elderlymeeting.ui.seek.SeekFragment;
 import com.example.elderlymeeting.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -24,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomeFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -33,9 +32,6 @@ public class HomeActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
-                        case R.id.home:
-                            selectedFragment = new HomeFragment();
-                            break;
                         case R.id.seek:
                             selectedFragment = new SeekFragment();
                             break;
