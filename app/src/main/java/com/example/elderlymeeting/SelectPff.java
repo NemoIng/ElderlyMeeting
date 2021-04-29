@@ -108,6 +108,7 @@ public class SelectPff extends AppCompatActivity implements View.OnClickListener
         //if the clicked button is upload
         else if (view == confirmButton) {
             uploadPicture();
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 }
