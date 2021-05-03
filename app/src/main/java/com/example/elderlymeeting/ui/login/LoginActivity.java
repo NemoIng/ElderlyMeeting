@@ -25,11 +25,13 @@ import android.widget.Toast;
 
 import com.example.elderlymeeting.MainActivity;
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.RegisterPage;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     Button backBtn;
+    Button registerBtn;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,11 +46,20 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressBar loadingProgressBar = findViewById(R.id.loading);
 
         backBtn = findViewById(R.id.backToMain);
-
         backBtn.setOnClickListener(new View.OnClickListener() {
                                        @Override
                                        public void onClick(View v) {
                                            startActivity(new Intent(LoginActivity.this , MainActivity.class));
+                                       }
+                                   }
+
+        );
+
+        registerBtn = findViewById(R.id.register);
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+                                       @Override
+                                       public void onClick(View v) {
+                                           startActivity(new Intent(LoginActivity.this , RegisterPage.class));
                                        }
                                    }
 

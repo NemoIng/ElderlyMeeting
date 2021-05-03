@@ -1,5 +1,6 @@
 package com.example.elderlymeeting;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -12,7 +13,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.elderlymeeting.ui.Users.Users;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import static java.lang.Integer.parseInt;
@@ -112,25 +116,24 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                     if(auth.isSuccessful()){
                         Users users = new Users(fullName, age, email, null, null, null);
 
-                        FirebaseDatabase.getInstance().getReference("Users")
-                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                .setValue(users).addOnCompleteListener(register -> {
-                                    if(register.isSuccessful()){
-                                        Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
-                                        Intent intent = new Intent(this, SelectPff.class);
-                                        String Uid = FirebaseDatabase.getInstance().getReference("Users")
-                                                .child(FirebaseAuth.getInstance().getCurrentUser().getUid();
-                                        //carry login information
-                                        intent.putExtra(String.valueOf(users), Uid);
-                                        startActivity(intent);
-                                    }
-                                    else{
-                                        Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
-                                        progressBar.setVisibility(View.GONE);
+                        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(fullName);
+
+                                myRef.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (auth.isSuccessful()){
+                                            Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
+                                            progressBar.setVisibility(View.GONE);
+
+                                            Intent i = new Intent(RegisterPage.this, SelectPff.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
+                                            startActivity(i);
+                                            finish();
+                                        }
                                     }
                                 });
-                    }
+
+                     }
                     else{
                         Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
                         progressBar.setVisibility(View.GONE);

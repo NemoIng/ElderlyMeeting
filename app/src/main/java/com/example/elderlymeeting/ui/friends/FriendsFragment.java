@@ -56,46 +56,26 @@ public class FriendsFragment extends Fragment {
 
         reference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mUsers.clear();
-                for(snapshot : )
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Users user = snapshot.getValue(Users.class);
+
+                    assert user != null;
+                    if (!user.getFullName().equals(firebaseUser.getDisplayName())){
+                        mUsers.add(user);
+                    }
+
+                    userAdapter = new UserAdapter(getContext(), mUsers);
+                    recyclerView.setAdapter(userAdapter);
+                }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
-        })
-    }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        FirebaseRecyclerAdapter<Users, FriendsViewHolder> firebaseRecyclerAdapter
-                = new FirebaseRecyclerAdapter<Friends, FriendsViewHolder>
-                (
-                        Friends.class,
-
-                        FriendsViewHolder.class,
-                        FriendsReference
-                )
-                {
-                    @Override
-                    protected void populateViewHolder(FriendsViewHolder viewHolder, Friends friends, int i) {
-
-                    }
-                };
-
-        recyclerView.setAdapter(firebaseRecyclerAdapter);
-    }
-
-    public static class FriendsViewHolder extends RecyclerView.ViewHolder{
-        View mView;
-
-        public FriendsViewHolder(View itemView){
-            super(itemView);
-            mView = itemView;
-        }
+        });
     }
 }
