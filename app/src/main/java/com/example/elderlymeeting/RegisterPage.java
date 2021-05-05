@@ -127,6 +127,11 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                                             Intent i = new Intent(RegisterPage.this, SelectPff.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
+
+                                            Bundle mBundle = new Bundle();
+                                            mBundle.putString("fullName", fullName);
+                                            i.putExtras(mBundle);
+
                                             startActivity(i);
                                             finish();
                                         }

@@ -23,7 +23,7 @@ public class HomeActivity extends AppCompatActivity {
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SeekFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -32,11 +32,11 @@ public class HomeActivity extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
-                        case R.id.seek:
-                            selectedFragment = new SeekFragment();
-                            break;
                         case R.id.friends:
                             selectedFragment = new FriendsFragment();
+                            break;
+                        case R.id.seek:
+                            selectedFragment = new SeekFragment();
                             break;
                         case R.id.settings:
                             selectedFragment = new SettingsFragment();

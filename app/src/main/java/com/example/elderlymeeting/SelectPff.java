@@ -3,14 +3,18 @@ package com.example.elderlymeeting;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentQueryMap;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -22,11 +26,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.OnProgressListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-public class SelectPff extends AppCompatActivity implements View.OnClickListener {
+public class SelectPff extends AppCompatActivity{
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -34,9 +39,9 @@ public class SelectPff extends AppCompatActivity implements View.OnClickListener
 
     private ImageView imageProfile;
 
-    private Uri filePath;
+    public Uri filePath;
+    private StorageTask uploadTask;
 
-    FirebaseStorage storage;
     StorageReference storageReference;
 
 
@@ -45,14 +50,28 @@ public class SelectPff extends AppCompatActivity implements View.OnClickListener
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_pff);
-
-        selectImage = (Button) findViewById(R.id.selectImage);
-        confirmButton = (Button) findViewById(R.id.confirmButton);
+        storageReference = FirebaseStorage.getInstance().getReference("Images");
 
         imageProfile = (ImageView) findViewById(R.id.imageProfile);
 
-        selectImage.setOnClickListener(this);
-        confirmButton.setOnClickListener(this);
+        selectImage = (Button) findViewById(R.id.selectImage);
+        selectImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageSelector();
+            }
+        });
+        confirmButton = (Button) findViewById(R.id.confirmButton);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(uploadTask != null && uploadTask.isInProgress()){
+                    Toast.makeText(SelectPff.this, "Upload in progress", Toast.LENGTH_LONG).show();
+                }
+                uploadPicture();
+            }
+        });
+
     }
 
     @Override
@@ -60,6 +79,7 @@ public class SelectPff extends AppCompatActivity implements View.OnClickListener
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             filePath = data.getData();
+            imageProfile.setImageURI(filePath);
             try {
                 ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), filePath);
                 Bitmap bitmap = ImageDecoder.decodeBitmap(source);
@@ -79,15 +99,27 @@ public class SelectPff extends AppCompatActivity implements View.OnClickListener
         startActivityForResult(Intent.createChooser(intent, "Select your profile picture"), PICK_IMAGE_REQUEST);
     }
 
+    private String getExtension(Uri uri){
+        ContentResolver cr = getContentResolver();
+        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
+        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
+    }
+
     private void uploadPicture () {
-        if (filePath != null){
-            //String userID = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).toString();
-            StorageReference ref = storageReference.child("images/test");
-            ref.putFile(filePath)
+            String fullName = getIntent().getStringExtra("fullName");
+            StorageReference ref = storageReference.child(fullName + "/profilePic");
+            uploadTask = ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(SelectPff.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    startActivity(new Intent(SelectPff.this, HomeActivity.class));
+                                }
+                            }, 500);
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -97,18 +129,4 @@ public class SelectPff extends AppCompatActivity implements View.OnClickListener
                         }
                     });
         }
-    }
-
-    @Override
-    public void onClick(View view) {
-        //if the clicked button is choose
-        if (view == selectImage) {
-            imageSelector();
-        }
-        //if the clicked button is upload
-        else if (view == confirmButton) {
-            uploadPicture();
-            startActivity(new Intent(SelectPff.this, HomeActivity.class));
-        }
-    }
 }
