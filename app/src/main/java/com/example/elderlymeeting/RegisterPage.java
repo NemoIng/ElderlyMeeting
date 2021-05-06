@@ -16,6 +16,7 @@ import com.example.elderlymeeting.ui.Users.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,8 +28,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
     private Button register, backToMain;
 
     private FirebaseAuth mAuth;
-
-    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,16 +47,16 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         editTextTextPassword = (EditText) findViewById(R.id.editTextTextPassword);
         editTextTextPassword2 = (EditText) findViewById(R.id.editTextTextPassword2);
         editTextTextPersonName = (EditText) findViewById(R.id.editTextTextPersonName);
-
-        progressBar = (ProgressBar) findViewById(R.id.progressBar);
     }
 
     private void registerUser() {
-        String email = editTextTextEmailAddress.getText().toString().trim();
-        String password = editTextTextPassword.getText().toString().trim();
-        String password2 = editTextTextPassword2.getText().toString().trim();
-        String fullName = editTextTextPersonName.getText().toString().trim();
-        String age = editTextNumber.getText().toString().trim();
+        String email, password, password2, fullName, age;
+
+        email = editTextTextEmailAddress.getText().toString().trim();
+        password = editTextTextPassword.getText().toString().trim();
+        password2 = editTextTextPassword2.getText().toString().trim();
+        fullName = editTextTextPersonName.getText().toString().trim();
+        age = editTextNumber.getText().toString().trim();
 
         if(fullName.isEmpty()){
             editTextTextPersonName.setError("Full name is required!");
@@ -110,26 +109,26 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             return;
         }
 
-        progressBar.setVisibility(View.VISIBLE);
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(auth -> {
                     if(auth.isSuccessful()){
-                        Users users = new Users(fullName, age, email, null, null, null);
+                        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                        String id = firebaseUser.getUid();
+                        Users users = new Users(id, fullName, age, email, null, null, null);
 
-                        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(fullName);
+                        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(id);
 
                                 myRef.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        if (auth.isSuccessful()){
+                                        if (task.isSuccessful()){
                                             Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
-                                            progressBar.setVisibility(View.GONE);
 
                                             Intent i = new Intent(RegisterPage.this, SelectPff.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
 
                                             Bundle mBundle = new Bundle();
-                                            mBundle.putString("fullName", fullName);
+                                            mBundle.putString("email", email);
                                             i.putExtras(mBundle);
 
                                             startActivity(i);
@@ -141,7 +140,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                      }
                     else{
                         Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
-                        progressBar.setVisibility(View.GONE);
                     }
                 });
     }

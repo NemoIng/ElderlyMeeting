@@ -36,6 +36,10 @@ public class FriendsFragment extends Fragment {
     private DatabaseReference FriendsReference;
     private FirebaseAuth mAuth;
 
+    public FriendsFragment(){
+        // Empty
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,7 +50,7 @@ public class FriendsFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         mUsers = new ArrayList<>();
-        readUsers();
+      //  readUsers();
         return myMainView;
     }
 
@@ -62,7 +66,7 @@ public class FriendsFragment extends Fragment {
                     Users user = snapshot.getValue(Users.class);
 
                     assert user != null;
-                    if (!user.getFullName().equals(firebaseUser.getDisplayName())){
+                    if (!user.getId().equals(firebaseUser.getUid())){
                         mUsers.add(user);
                     }
 

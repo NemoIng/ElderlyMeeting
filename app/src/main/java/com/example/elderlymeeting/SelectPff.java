@@ -106,8 +106,8 @@ public class SelectPff extends AppCompatActivity{
     }
 
     private void uploadPicture () {
-            String fullName = getIntent().getStringExtra("fullName");
-            StorageReference ref = storageReference.child(fullName + "/profilePic");
+            String email = getIntent().getStringExtra("email");
+            StorageReference ref = storageReference.child(email);
             uploadTask = ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

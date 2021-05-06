@@ -2,20 +2,25 @@ package com.example.elderlymeeting.ui.Users;
 
 public class Users {
 
-    public String fullName, age, email, bio, picture;
-    public String[] hobby;
+    private String id, fullName, age, email, bio, picture;
+    private String[] hobby;
 
-    public Users(){
-
-    }
-
-    public Users(String fullName, String age, String email, String bio, String[] hobby, String picture){
+    public Users(String id, String fullName, String age, String email, String bio, String[] hobby, String picture){
+        this.id = id;
         this.fullName = fullName;
         this.age = age;
         this.email = email;
         this.bio = bio;
         this.hobby = hobby;
         this.picture = picture;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getFullName() {
