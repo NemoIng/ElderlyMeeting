@@ -117,7 +117,7 @@ public class SelectPff extends AppCompatActivity{
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    startActivity(new Intent(SelectPff.this, HomeActivity.class));
+                                    startActivity(new Intent(SelectPff.this, Hobby.class));
                                 }
                             }, 500);
                         }

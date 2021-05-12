@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElderlyMeeting">
+        <activity android:name=".Hobby"></activity>
         <activity android:name=".SelectPff" />
         <activity android:name=".RegisterPage" />
         <activity
