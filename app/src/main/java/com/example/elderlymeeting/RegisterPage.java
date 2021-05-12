@@ -9,7 +9,6 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.elderlymeeting.ui.Users.Users;
@@ -25,7 +24,7 @@ import static java.lang.Integer.parseInt;
 public class RegisterPage extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextTextEmailAddress, editTextTextPassword, editTextTextPersonName, editTextNumber, editTextTextPassword2;
-    private Button register, backToMain;
+    private Button registerBtn, backToMainBtn;
 
     private FirebaseAuth mAuth;
 
@@ -36,11 +35,11 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
         mAuth = FirebaseAuth.getInstance();
 
-        backToMain = (Button) findViewById(R.id.backToMain);
-        backToMain.setOnClickListener(this);
+        backToMainBtn = (Button) findViewById(R.id.backToMain);
+        backToMainBtn.setOnClickListener(this);
 
-        register = (Button) findViewById(R.id.register);
-        register.setOnClickListener(this);
+        registerBtn = (Button) findViewById(R.id.register);
+        registerBtn.setOnClickListener(this);
 
         editTextNumber = (EditText) findViewById(R.id.editTextNumber);
         editTextTextEmailAddress = (EditText) findViewById(R.id.editTextTextEmailAddress);
@@ -126,11 +125,6 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                                             Intent i = new Intent(RegisterPage.this, SelectPff.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
-
-                                            Bundle mBundle = new Bundle();
-                                            mBundle.putString("id", id);
-                                            i.putExtras(mBundle);
-
                                             startActivity(i);
                                             finish();
                                         }
