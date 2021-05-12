@@ -128,7 +128,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
 
                                             Bundle mBundle = new Bundle();
-                                            mBundle.putString("email", email);
+                                            mBundle.putString("id", id);
                                             i.putExtras(mBundle);
 
                                             startActivity(i);
