@@ -55,6 +55,11 @@ public class Bio extends AppCompatActivity {
             bioEdit.requestFocus();
             return;
         }
+        if(!isLetter(bio)){
+            bioEdit.setError("Please only use letters!");
+            bioEdit.requestFocus();
+            return;
+        }
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
 
