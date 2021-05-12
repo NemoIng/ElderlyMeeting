@@ -1,4 +1,4 @@
-package com.example.elderlymeeting;
+package com.example.elderlymeeting.ui.Users;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,17 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.example.elderlymeeting.ui.Users.Hobbys;
-import com.example.elderlymeeting.ui.Users.Users;
+import com.example.elderlymeeting.HomeActivity;
+import com.example.elderlymeeting.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.StorageReference;
 
 import static java.lang.Integer.parseInt;
 
@@ -110,7 +108,7 @@ public class Hobby extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
 
-                    Intent i = new Intent(Hobby.this, HomeActivity.class);
+                    Intent i = new Intent(Hobby.this, Bio.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
 
                     startActivity(i);

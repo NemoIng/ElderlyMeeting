@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.elderlymeeting.ui.Users.Hobby;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -118,7 +119,7 @@ public class SelectPff extends AppCompatActivity{
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    startActivity(new Intent(SelectPff.this, HomeActivity.class));
+                                    startActivity(new Intent(SelectPff.this, Hobby.class));
                                 }
                             }, 500);
                         }
