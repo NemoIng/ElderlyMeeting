@@ -3,16 +3,13 @@ package com.example.elderlymeeting;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.ContentQueryMap;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.ImageDecoder;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -22,8 +19,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.OnProgressListener;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -35,7 +31,7 @@ public class SelectPff extends AppCompatActivity{
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
-    private Button selectImage, confirmButton;
+    private Button selectImageBtn, confirmBtn;
 
     private ImageView imageProfile;
 
@@ -43,6 +39,7 @@ public class SelectPff extends AppCompatActivity{
     private StorageTask uploadTask;
 
     StorageReference storageReference;
+    private FirebaseAuth mAuth;
 
 
     // Credit to: https://www.simplifiedcoding.net/firebase-storage-tutorial-android/
@@ -54,15 +51,15 @@ public class SelectPff extends AppCompatActivity{
 
         imageProfile = (ImageView) findViewById(R.id.imageProfile);
 
-        selectImage = (Button) findViewById(R.id.selectImage);
-        selectImage.setOnClickListener(new View.OnClickListener() {
+        selectImageBtn = (Button) findViewById(R.id.selectImage);
+        selectImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 imageSelector();
             }
         });
-        confirmButton = (Button) findViewById(R.id.confirmButton);
-        confirmButton.setOnClickListener(new View.OnClickListener() {
+        confirmBtn = (Button) findViewById(R.id.confirmButton);
+        confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(uploadTask != null && uploadTask.isInProgress()){
@@ -71,6 +68,8 @@ public class SelectPff extends AppCompatActivity{
                 uploadPicture();
             }
         });
+
+        mAuth = FirebaseAuth.getInstance();
 
     }
 
@@ -106,7 +105,9 @@ public class SelectPff extends AppCompatActivity{
     }
 
     private void uploadPicture () {
-            String id = getIntent().getStringExtra("id");
+            FirebaseUser firebaseUser = mAuth.getCurrentUser();
+            String id = firebaseUser.getUid();
+
             StorageReference ref = storageReference.child(id);
             uploadTask = ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -117,7 +118,7 @@ public class SelectPff extends AppCompatActivity{
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    startActivity(new Intent(SelectPff.this, Hobby.class));
+                                    startActivity(new Intent(SelectPff.this, HomeActivity.class));
                                 }
                             }, 500);
                         }
