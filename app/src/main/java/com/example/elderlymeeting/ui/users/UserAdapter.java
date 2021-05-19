@@ -1,4 +1,4 @@
-package com.example.elderlymeeting.ui.Users;
+package com.example.elderlymeeting.ui.users;
 
 import android.content.Context;
 import android.view.LayoutInflater;

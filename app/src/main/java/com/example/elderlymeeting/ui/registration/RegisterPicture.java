@@ -1,4 +1,4 @@
-package com.example.elderlymeeting;
+package com.example.elderlymeeting.ui.registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,11 +16,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.elderlymeeting.ui.Users.Hobby;
+import com.example.elderlymeeting.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -28,7 +30,7 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
 
-public class SelectPff extends AppCompatActivity{
+public class RegisterPicture extends AppCompatActivity{
 
     private static final int PICK_IMAGE_REQUEST = 1;
 
@@ -64,7 +66,7 @@ public class SelectPff extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 if(uploadTask != null && uploadTask.isInProgress()){
-                    Toast.makeText(SelectPff.this, "Upload in progress", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterPicture.this, "Upload in progress", Toast.LENGTH_LONG).show();
                 }
                 uploadPicture();
             }
@@ -109,17 +111,20 @@ public class SelectPff extends AppCompatActivity{
             FirebaseUser firebaseUser = mAuth.getCurrentUser();
             String id = firebaseUser.getUid();
 
-            StorageReference ref = storageReference.child(id);
-            uploadTask = ref.putFile(filePath)
+            StorageReference storageReference = this.storageReference.child(id);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(id).child("profilePicture");
+            databaseReference.setValue(filePath.toString());
+
+            uploadTask = storageReference.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(SelectPff.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterPicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    startActivity(new Intent(SelectPff.this, Hobby.class));
+                                    startActivity(new Intent(RegisterPicture.this, RegisterHobbys.class));
                                 }
                             }, 500);
                         }
@@ -127,7 +132,7 @@ public class SelectPff extends AppCompatActivity{
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(SelectPff.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterPicture.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }

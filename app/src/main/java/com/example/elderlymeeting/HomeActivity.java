@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.elderlymeeting.ui.Users.Users;
 import com.example.elderlymeeting.ui.friends.FriendsFragment;
 import com.example.elderlymeeting.ui.myProfile.MyProfileFragment;
 import com.example.elderlymeeting.ui.seek.SeekFragment;
@@ -16,13 +14,8 @@ import com.example.elderlymeeting.ui.settings.SettingsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import org.jetbrains.annotations.NotNull;
 
     public class HomeActivity extends AppCompatActivity {
 

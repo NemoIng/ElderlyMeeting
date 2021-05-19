@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 import com.example.elderlymeeting.HomeActivity;
 import com.example.elderlymeeting.R;
-import com.example.elderlymeeting.RegisterPage;
+import com.example.elderlymeeting.ui.registration.RegisterPage;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

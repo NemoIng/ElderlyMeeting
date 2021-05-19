@@ -1,4 +1,4 @@
-package com.example.elderlymeeting.ui.Users;
+package com.example.elderlymeeting.ui.users;
 
 public class Hobbys{
 

@@ -12,9 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elderlymeeting.R;
-import com.example.elderlymeeting.ui.Users.UserAdapter;
-import com.example.elderlymeeting.ui.Users.Users;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.example.elderlymeeting.ui.users.UserAdapter;
+import com.example.elderlymeeting.ui.users.Users;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;

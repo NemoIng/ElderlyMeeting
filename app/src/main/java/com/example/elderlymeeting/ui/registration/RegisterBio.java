@@ -1,4 +1,4 @@
-package com.example.elderlymeeting.ui.Users;
+package com.example.elderlymeeting.ui.registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class Bio extends AppCompatActivity {
+public class RegisterBio extends AppCompatActivity {
 
     private EditText bioEdit;
 
@@ -55,7 +55,7 @@ public class Bio extends AppCompatActivity {
             bioEdit.requestFocus();
             return;
         }
-        if(!isLetter(bio)){
+        if(isDigit(bio)){
             bioEdit.setError("Please only use letters!");
             bioEdit.requestFocus();
             return;
@@ -70,7 +70,7 @@ public class Bio extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
 
-                    Intent i = new Intent(Bio.this, HomeActivity.class);
+                    Intent i = new Intent(RegisterBio.this, HomeActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
 
                     startActivity(i);
@@ -81,15 +81,15 @@ public class Bio extends AppCompatActivity {
 
     }
 
-    public boolean isLetter(String name) {
+    public boolean isDigit(String name) {
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
-            if(!Character.isLetter(c)){
-                return false;
+            if(Character.isDigit(c)){
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

@@ -1,4 +1,4 @@
-package com.example.elderlymeeting;
+package com.example.elderlymeeting.ui.registration;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +11,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.elderlymeeting.ui.Users.Users;
+import com.example.elderlymeeting.MainActivity;
+import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.users.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -123,7 +125,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                                         if (task.isSuccessful()){
                                             Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
 
-                                            Intent i = new Intent(RegisterPage.this, SelectPff.class);
+                                            Intent i = new Intent(RegisterPage.this, RegisterPicture.class);
                                             i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
                                             startActivity(i);
                                             finish();
