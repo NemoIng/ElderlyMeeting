@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Tell us something about yourself!"
-        android:textSize="16sp"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -35,10 +35,11 @@
         android:id="@+id/warning"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="36dp"
         android:gravity="center"
-        android:text="do not share sensitive info!\n this info will be visible for everybody!"
         android:textColor="#E81C1C"
+        android:text="Do not share sensitive info!\n This info will be visible for everybody!"
+        android:textSize="22sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/instuction" />

@@ -8,13 +8,37 @@
 
     <TextView
         android:id="@+id/textView2"
+        android:layout_width="325dp"
+        android:layout_height="198dp"
+        android:layout_marginBottom="488dp"
+        android:text="Here you can start looking for new people to meet with!\n We find people with similar hobbies and show them to you!\n \n Then you can decide if you want to talk to them or not."
+        android:textSize="22dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/buttonMatch"
+        android:layout_width="119dp"
+        android:layout_height="66dp"
+        android:layout_marginBottom="100dp"
+        android:text="Match"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="133dp"
-        android:layout_marginBottom="492dp"
-        android:text="Seek fragment"
-        android:textSize="22dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:layout_marginTop="40dp"
+        android:text="Be aware of scammers!\n Do not send personal or sensitive information to other people!"
+        android:textSize="22sp"
+        android:gravity="center"
+        android:textColor="#E81C1C"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
