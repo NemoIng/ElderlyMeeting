@@ -45,7 +45,7 @@ import com.google.firebase.database.FirebaseDatabase;
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SeekFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

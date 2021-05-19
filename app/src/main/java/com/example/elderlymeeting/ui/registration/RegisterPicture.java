@@ -115,6 +115,7 @@ public class RegisterPicture extends AppCompatActivity{
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(id).child("profilePicture");
             databaseReference.setValue(filePath.toString());
 
+
             uploadTask = storageReference.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

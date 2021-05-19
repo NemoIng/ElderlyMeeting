@@ -45,8 +45,9 @@ public class MyProfileFragment extends Fragment {
     TextView textView;
 
     FirebaseUser firebaseUser;
-    DatabaseReference reference;
+    DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
@@ -58,33 +59,21 @@ public class MyProfileFragment extends Fragment {
                 logOut();
             }
         });
+
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
 
         profilePicture = (ImageView) view.findViewById(R.id.profilePicture);
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference();
+        databaseReference = firebaseDatabase.getReference();
         DatabaseReference getImage = databaseReference.child(id).child("profilePicture");
 
-        getImage.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String link = snapshot.getValue(String.class);
-                Picasso.get().load(link).into(profilePicture);
-            }
-
-            @Override
-            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-            }
-        });
-
-
+        String link = getImage.toString();
+        Picasso.get().load(link).into(profilePicture);
 
         return view;
     }
-
 
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
