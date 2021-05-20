@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.SoundEffectConstants;
 import android.view.View;
@@ -15,19 +16,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.elderlymeeting.MainActivity;
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.users.Users;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
@@ -41,8 +46,10 @@ public class MyProfileFragment extends Fragment {
     Button logoutBtn;
     View view;
 
+    Users user;
+
     ImageView profilePicture;
-    TextView textView;
+    TextView fullName;
 
     FirebaseUser firebaseUser;
     DatabaseReference databaseReference;
@@ -60,6 +67,11 @@ public class MyProfileFragment extends Fragment {
             }
         });
 
+
+        return view;
+    }
+
+    public void profilePicture(){
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
@@ -72,12 +84,33 @@ public class MyProfileFragment extends Fragment {
         String link = getImage.toString();
         Picasso.get().load(link).into(profilePicture);
 
-        return view;
+        fullName = (TextView) view.findViewById(R.id.fullName);
+
+
+        databaseReference = firebaseDatabase.getReference().child("Users").child(id);
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                String fullNameString = snapshot.child(id).child("fullName").getValue().toString();
+                fullName.setText(fullNameString);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+
+
+
+
     }
 
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        profilePicture();
     }
 
     public void logOut(){
