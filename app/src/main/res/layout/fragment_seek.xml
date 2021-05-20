@@ -9,8 +9,8 @@
     <TextView
         android:id="@+id/textView2"
         android:layout_width="325dp"
-        android:layout_height="240dp"
-        android:layout_marginTop="48dp"
+        android:layout_height="198dp"
+        android:layout_marginTop="50dp"
         android:gravity="center"
         android:text="Here you can start looking for new people to meet with!\n We find people with similar hobbies and show them to you!\n \n Then you can decide if you want to talk to them or not."
         android:textSize="22dp"
@@ -32,13 +32,12 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:gravity="center"
+        android:layout_marginTop="40dp"
         android:text="Be aware of scammers!\n Do not send personal or sensitive information to other people!"
-        android:textColor="#E81C1C"
         android:textSize="22sp"
+        android:gravity="center"
+        android:textColor="#E81C1C"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
