@@ -66,32 +66,32 @@ public class RegisterHobbys extends AppCompatActivity {
             editHobby1.requestFocus();
             return;
         }
-        if(!isAlphabet(hobby1)){
+        if(isDigit(hobby1)){
             editHobby1.setError("Please only use letters!");
             editHobby1.requestFocus();
             return;
         }
-        if(!isAlphabet(hobby2)){
+        if(isDigit(hobby2)){
             editHobby2.setError("Please only use letters!");
             editHobby2.requestFocus();
             return;
         }
-        if(!isAlphabet(hobby3)){
+        if(isDigit(hobby3)){
             editHobby3.setError("Please only use letters!");
             editHobby3.requestFocus();
             return;
         }
-        if(!isAlphabet(hobby4)){
+        if(isDigit(hobby4)){
             editHobby4.setError("Please only use letters!");
             editHobby4.requestFocus();
             return;
         }
-        if(!isAlphabet(hobby5)){
+        if(isDigit(hobby5)){
             editHobby5.setError("Please only use letters!");
             editHobby5.requestFocus();
             return;
         }
-        if(!isAlphabet(hobby6)){
+        if(isDigit(hobby6)){
             editHobby6.setError("Please only use letters!");
             editHobby6.requestFocus();
             return;
@@ -119,15 +119,15 @@ public class RegisterHobbys extends AppCompatActivity {
 
     }
 
-    public boolean isAlphabet(String name) {
+    public boolean isDigit(String name) {
         char[] chars = name.toCharArray();
 
         for (char c : chars) {
-            if(!Character.isLetter(c)) {
-                return false;
+            if(Character.isDigit(c)){
+                return true;
             }
         }
 
-        return true;
+        return false;
     }
 }

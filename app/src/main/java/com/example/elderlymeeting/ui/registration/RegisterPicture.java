@@ -17,8 +17,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.elderlymeeting.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
 import com.google.firebase.storage.UploadTask;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 
@@ -113,13 +117,22 @@ public class RegisterPicture extends AppCompatActivity{
 
             StorageReference storageReference = this.storageReference.child(id);
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(id).child("profilePicture");
-            databaseReference.setValue(filePath.toString());
+
+
+
 
 
             uploadTask = storageReference.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                                @Override
+                                public void onComplete(@NonNull @NotNull Task<Uri> task) {
+                                    String url = task.getResult().toString();
+                                    databaseReference.setValue(url);
+                                }
+                            });
                             Toast.makeText(RegisterPicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
                             Handler handler = new Handler();
                             handler.postDelayed(new Runnable() {
