@@ -11,6 +11,7 @@ import com.example.elderlymeeting.ui.friends.FriendsFragment;
 import com.example.elderlymeeting.ui.myProfile.MyProfileFragment;
 import com.example.elderlymeeting.ui.seek.SeekFragment;
 import com.example.elderlymeeting.ui.settings.SettingsFragment;
+import com.example.elderlymeeting.ui.messaging.MessageActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -45,7 +46,10 @@ import com.google.firebase.database.FirebaseDatabase;
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new FriendsFragment()).commit();
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new FriendsFragment())
+                .commit();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
