@@ -30,7 +30,8 @@ public class SeekFragment extends Fragment {
     View view;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_seek, container, false);
 
         matchBtn = (Button) view.findViewById(R.id.buttonMatch);

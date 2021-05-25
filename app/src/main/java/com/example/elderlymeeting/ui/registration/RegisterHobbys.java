@@ -101,7 +101,10 @@ public class RegisterHobbys extends AppCompatActivity {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(id).child("hobbys");
+        DatabaseReference myRef = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(id)
+                .child("hobbys");
 
         myRef.setValue(hobbys).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
