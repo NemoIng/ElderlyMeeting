@@ -13,9 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.elderlymeeting.MainActivity;
 import com.example.elderlymeeting.R;
-import com.example.elderlymeeting.ui.seek.MatchActivity;
 import com.example.elderlymeeting.ui.users.UserAdapter;
 import com.example.elderlymeeting.ui.users.Users;
 import com.example.elderlymeeting.ui.messaging.MessageActivity;
@@ -50,13 +48,9 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View myMainView = inflater.inflate(R.layout.fragment_friends, container, false);
-        recyclerView = (RecyclerView) myMainView.findViewById(R.id.recycler_view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        view = inflater.inflate(R.layout.fragment_my_profile, container, false);
-        messageButton = (Button) view.findViewById(R.id.logoutBtn);
+        messageButton = (Button) view.findViewById(R.id.messageButton);
         messageButton.setOnClickListener(v -> {
             //go to message tab
             Intent i = new Intent(getActivity(), MessageActivity.class);
@@ -65,9 +59,8 @@ public class FriendsFragment extends Fragment {
             startActivity(i);
         });
 
-        mUsers = new ArrayList<>();
       //  readUsers();
-        return myMainView;
+        return view;
     }
 
     private void readUsers(){
