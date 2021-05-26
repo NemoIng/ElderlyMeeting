@@ -23,6 +23,12 @@ public class MessageFragment extends Fragment {
     private String message;
     View view;
 
+    String receiver;
+
+    public MessageFragment(String currentMatch) {
+        receiver = currentMatch;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +49,7 @@ public class MessageFragment extends Fragment {
                 message = messageInput.getText().toString();
                 //must be input to send a message
                 if(!message.equals("")){
-                    sendMessage(id, "testtesttesttest", message);
+                    sendMessage(id, receiver, message);
                 }
                 //set message input to an empty string
                 messageInput.setText("");

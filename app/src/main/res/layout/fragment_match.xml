@@ -50,16 +50,6 @@
         app:layout_constraintTop_toBottomOf="@id/hobbies" />
 
     <TextView
-        android:id="@+id/hobby6"
-        android:layout_width="123dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="40dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hobby5" />
-
-    <TextView
         android:id="@+id/hobby2"
         android:layout_width="123dp"
         android:layout_height="24dp"
@@ -112,19 +102,19 @@
 
     <ImageView
         android:id="@+id/circle1"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="224dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         app:layout_constraintEnd_toStartOf="@+id/hobby1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/fullName" />
 
     <ImageView
         android:id="@+id/circle2"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -133,9 +123,9 @@
 
     <ImageView
         android:id="@+id/circle3"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -144,9 +134,9 @@
 
     <ImageView
         android:id="@+id/circle4"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -155,9 +145,9 @@
 
     <ImageView
         android:id="@+id/circle5"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -166,9 +156,9 @@
 
     <ImageView
         android:id="@+id/circle6"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -176,21 +166,10 @@
         app:layout_constraintTop_toBottomOf="@+id/circle5" />
 
     <Button
-        android:id="@+id/nextBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="430dp"
-        android:text="Next"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/matchBtn"
-        app:layout_constraintTop_toTopOf="@+id/fullName" />
-
-    <Button
         android:id="@+id/matchBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="430dp"
+        android:layout_marginTop="400dp"
         android:layout_marginEnd="20dp"
         android:text="Match"
         app:layout_constraintEnd_toStartOf="@+id/nextBtn"
@@ -199,19 +178,40 @@
         app:layout_constraintTop_toTopOf="@+id/profilePicture" />
 
     <TextView
+        android:id="@+id/hobby6"
+        android:layout_width="123dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="36dp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hobby5" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="400dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/matchBtn"
+        app:layout_constraintTop_toTopOf="@+id/fullName" />
+
+    <TextView
         android:id="@+id/noMatches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="112dp"
+        android:layout_marginTop="38dp"
         android:gravity="center"
         android:text="No more matches \n Try again later!"
         android:textColor="@color/tw__composer_red"
         android:textSize="22dp"
         android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchBtn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

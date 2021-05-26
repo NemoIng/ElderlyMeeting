@@ -36,6 +36,8 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
     private List<Users> mUsers;
     public Button messageButton;
 
+    String receiver;
+
     View view;
 
     private DatabaseReference FriendsReference;
@@ -50,42 +52,12 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_friends, container, false);
-
+        receiver = "test persoon";
         messageButton = (Button) view.findViewById(R.id.messageButton);
         messageButton.setOnClickListener(this);
-
-      //  readUsers();
         return view;
     }
 
-    private void readUsers(){
-        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mUsers.clear();
-                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Users user = snapshot.getValue(Users.class);
-
-                    assert user != null;
-                    if (!user.getId().equals(firebaseUser.getUid())){
-                        mUsers.add(user);
-                    }
-
-                    userAdapter = new UserAdapter(getContext(), mUsers);
-                    recyclerView.setAdapter(userAdapter);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-
-        });
-    }
 
     @Override
     public void onClick(View view) {
@@ -93,7 +65,7 @@ public class FriendsFragment extends Fragment implements View.OnClickListener{
             case R.id.messageButton:
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new MessageFragment())
+                        .replace(R.id.fragment_container, new MessageFragment(receiver))
                         .commit();
                 break;
         }

@@ -133,19 +133,19 @@
 
     <ImageView
         android:id="@+id/circle1"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="224dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="180dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         app:layout_constraintEnd_toStartOf="@+id/hobby1"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@id/fullName" />
 
     <ImageView
         android:id="@+id/circle2"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -154,9 +154,9 @@
 
     <ImageView
         android:id="@+id/circle3"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -165,9 +165,9 @@
 
     <ImageView
         android:id="@+id/circle4"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -176,9 +176,9 @@
 
     <ImageView
         android:id="@+id/circle5"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"
@@ -187,9 +187,9 @@
 
     <ImageView
         android:id="@+id/circle6"
-        android:layout_width="13dp"
-        android:layout_height="13dp"
-        android:layout_marginTop="19dp"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="5dp"
         android:src="@drawable/circle"
         android:visibility="invisible"

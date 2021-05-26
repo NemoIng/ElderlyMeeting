@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.messaging.MessageFragment;
 import com.example.elderlymeeting.ui.registration.RegisterPage;
 import com.example.elderlymeeting.ui.users.Users;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -201,12 +202,9 @@ public class MatchFragment extends Fragment {
                         friendsReference.child("friend" + (friendListSize+1)).setValue(currentMatch).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
-
+                                toChat(currentMatch);
                             }
                         });
-
-
-
             }
 
             @Override
@@ -217,13 +215,11 @@ public class MatchFragment extends Fragment {
 
     }
 
-    private boolean friendsArray(String currentMatch){
-        for (int i = 0; i<FRIENDLIMIT; i++){
-            if (friends.get(i).equals(currentMatch)){
-                return false;
-            }
-        }
-        return true;
+    private void toChat(String currentMatch){
+        getFragmentManager()
+                .beginTransaction()
+                .replace(R.id.fragment_container, new MessageFragment(currentMatch))
+                .commit();
     }
 }
 
