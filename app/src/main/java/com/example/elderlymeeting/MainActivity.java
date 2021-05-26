@@ -26,17 +26,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signInBtn = (TextView) findViewById(R.id.signIn);
         signInBtn.setOnClickListener(this);
 
-        homeBtn = (TextView) findViewById(R.id.home);
-        homeBtn.setOnClickListener(this);
-
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.home:
-                startActivity(new Intent(this, HomeActivity.class));
-                break;
             case R.id.signIn:
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
