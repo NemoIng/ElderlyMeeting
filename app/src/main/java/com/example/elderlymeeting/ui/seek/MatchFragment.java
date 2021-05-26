@@ -132,9 +132,6 @@ public class MatchFragment extends Fragment {
                 String fullNameString = snapshot.child(id).child("fullName").getValue(String.class);
                 fullName.setText(fullNameString);
 
-                String emailString = snapshot.child(id).child("email").getValue(String.class);
-                email.setText(emailString);
-
                 String link = snapshot.child(id).child("profilePicture").getValue(String.class);
                 Glide.with(view)
                         .load(link)

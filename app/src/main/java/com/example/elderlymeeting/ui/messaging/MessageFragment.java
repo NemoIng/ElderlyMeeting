@@ -1,32 +1,32 @@
 package com.example.elderlymeeting.ui.messaging;
 
-import java.util.HashMap;
-import java.util.Scanner;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
+
+import androidx.fragment.app.Fragment;
 
 import com.example.elderlymeeting.R;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MessageActivity extends AppCompatActivity {
+import java.util.HashMap;
+
+public class MessageFragment extends Fragment {
 
     private EditText messageInput;
     private String message;
+    View view;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_message);
+        view = inflater.inflate(R.layout.fragment_message, container, false);
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
@@ -34,8 +34,8 @@ public class MessageActivity extends AppCompatActivity {
         assert firebaseUser != null;
         String id = firebaseUser.getUid();
 
-        Button sendButton = (Button) findViewById(R.id.sendButton);
-        messageInput = (EditText) findViewById(R.id.messageInput);
+        Button sendButton = (Button) view.findViewById(R.id.sendButton);
+        messageInput = (EditText) view.findViewById(R.id.messageInput);
 
         sendButton.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -52,6 +52,8 @@ public class MessageActivity extends AppCompatActivity {
 
         //clear input
         messageInput.setText("");
+
+        return view;
     }
 
     private void sendMessage(String sender, String receiver, String message){

@@ -14,9 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.messaging.MessageFragment;
+import com.example.elderlymeeting.ui.seek.MatchFragment;
 import com.example.elderlymeeting.ui.users.UserAdapter;
 import com.example.elderlymeeting.ui.users.Users;
-import com.example.elderlymeeting.ui.messaging.MessageActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,12 +29,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FriendsFragment extends Fragment {
+public class FriendsFragment extends Fragment implements View.OnClickListener{
 
     private RecyclerView recyclerView;
     private UserAdapter userAdapter;
     private List<Users> mUsers;
-    private Button messageButton;
+    public Button messageButton;
 
     View view;
 
@@ -48,16 +49,10 @@ public class FriendsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_friends, container, false);
+        view = inflater.inflate(R.layout.fragment_friends, container, false);
 
         messageButton = (Button) view.findViewById(R.id.messageButton);
-        messageButton.setOnClickListener(v -> {
-            //go to message tab
-            Intent i = new Intent(getActivity(), MessageActivity.class);
-            //i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
-
-            startActivity(i);
-        });
+        messageButton.setOnClickListener(this);
 
       //  readUsers();
         return view;
@@ -90,5 +85,17 @@ public class FriendsFragment extends Fragment {
             }
 
         });
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.messageButton:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new MessageFragment())
+                        .commit();
+                break;
+        }
     }
 }

@@ -35,7 +35,7 @@ public class SeekFragment extends Fragment implements View.OnClickListener {
     private FragmentActivity myContext;
 
     private Button matchBtn;
-    View view, view2;
+    View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
