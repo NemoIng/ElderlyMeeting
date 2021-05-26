@@ -9,9 +9,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.elderlymeeting.ui.friends.FriendsFragment;
+import com.example.elderlymeeting.ui.seek.MatchFragment;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,26 +30,37 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class SeekFragment extends Fragment {
+public class SeekFragment extends Fragment implements View.OnClickListener {
+
+    private FragmentActivity myContext;
 
     private Button matchBtn;
-    View view;
+    View view, view2;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+
         view = inflater.inflate(R.layout.fragment_seek, container, false);
 
         matchBtn = (Button) view.findViewById(R.id.buttonMatch);
-        matchBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getActivity(), MatchActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
-
-                startActivity(i);
-            }
-        });
+        matchBtn.setOnClickListener(this);
         return view;
     }
+
+    @Override
+    public void onClick(View view) {
+        Fragment selectedFragment = null;
+        switch (view.getId()) {
+            case R.id.buttonMatch:
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new MatchFragment())
+                        .commit();
+                break;
+        }
+    }
+
+
+
 }

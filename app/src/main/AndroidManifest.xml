@@ -10,7 +10,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ElderlyMeeting">
-        <activity android:name=".ui.seek.MatchActivity"></activity>
         <activity android:name=".ui.registration.RegisterBio"></activity>
         <activity android:name=".ui.registration.RegisterHobbys" />
         <activity android:name=".ui.registration.RegisterPicture" />

@@ -1,18 +1,24 @@
 package com.example.elderlymeeting.ui.seek;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.bumptech.glide.Glide;
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.registration.RegisterPage;
+import com.example.elderlymeeting.ui.users.Users;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -20,28 +26,43 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.auth.User;
 
 import org.jetbrains.annotations.NotNull;
 
-public class MatchActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Map;
+
+public class MatchFragment extends Fragment {
     View view;
 
     ImageView profilePicture, circle2, circle3, circle4, circle5, circle6;
-    TextView fullName, email, bio, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6;
+    TextView fullName, email, bio, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, noMatches;
+    Button matchBtn, nextBtn;
 
     DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
+    String myID;
 
+    ArrayList<String> IDs = new ArrayList<>();
+    ListIterator<String> idList;
+
+    int FRIENDLIMIT = 50;
+    int friendListSize = 0;
+
+    ArrayList<String> friends = new ArrayList<>();
+    ListIterator<String> friendsList = friends.listIterator();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_match);
-        view = findViewById(R.id.content).getRootView();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        view = inflater.inflate(R.layout.fragment_match, container, false);
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
-        String id = firebaseUser.getUid();
+        myID = firebaseUser.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
@@ -57,6 +78,54 @@ public class MatchActivity extends AppCompatActivity {
         hobby5 = (TextView) view.findViewById(R.id.hobby5);
         hobby6 = (TextView) view.findViewById(R.id.hobby6);
 
+        databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    if (!childDataSnapshot.getKey().equals(myID)){
+                        IDs.add(childDataSnapshot.getKey());
+                        idList = IDs.listIterator();
+                        setProfile(idList.next());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+
+
+        matchBtn = (Button) view.findViewById(R.id.matchBtn);
+        matchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                matchUser();
+            }
+        });
+
+        nextBtn = (Button) view.findViewById(R.id.nextBtn);
+        nextBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(idList.hasNext()){
+                    setProfile(idList.next());
+                }
+                else{
+                    noMatches = (TextView) view.findViewById(R.id.noMatches);
+                    noMatches.setVisibility(view.VISIBLE);
+                }
+            }
+        });
+
+        return view;
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+
+    private void setProfile(String id){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -70,6 +139,7 @@ public class MatchActivity extends AppCompatActivity {
                 Glide.with(view)
                         .load(link)
                         .centerCrop()
+                        .override(300, 300)
                         .into(profilePicture);
 
                 String bioString = snapshot.child(id).child("bio").getValue(String.class);
@@ -120,4 +190,43 @@ public class MatchActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void matchUser(){
+        friendListSize = 0;
+        String currentMatch = idList.previous();
+        DatabaseReference friendsReference = databaseReference.child(myID).child("friends");
+        friendsReference.addListenerForSingleValueEvent( new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot datasnapshot) {
+                for (DataSnapshot childDataSnapshot : datasnapshot.getChildren()) {
+                    friendListSize++;
+                }
+                        friendsReference.child("friend" + (friendListSize+1)).setValue(currentMatch).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull @NotNull Task<Void> task) {
+
+                            }
+                        });
+
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
+    }
+
+    private boolean friendsArray(String currentMatch){
+        for (int i = 0; i<FRIENDLIMIT; i++){
+            if (friends.get(i).equals(currentMatch)){
+                return false;
+            }
+        }
+        return true;
+    }
 }
+

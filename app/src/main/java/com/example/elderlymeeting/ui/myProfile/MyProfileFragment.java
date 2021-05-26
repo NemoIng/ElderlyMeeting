@@ -85,6 +85,7 @@ public class MyProfileFragment extends Fragment {
                 Glide.with(view)
                         .load(link)
                         .centerCrop()
+                        .override(300, 300)
                         .into(profilePicture);
 
                 String bioString = snapshot.child(id).child("bio").getValue(String.class);
