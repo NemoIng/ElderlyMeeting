@@ -134,13 +134,9 @@ public class RegisterPicture extends AppCompatActivity{
                                 }
                             });
                             Toast.makeText(RegisterPicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            Handler handler = new Handler();
-                            handler.postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startActivity(new Intent(RegisterPicture.this, RegisterHobbys.class));
-                                }
-                            }, 500);
+                            //Go to hobby screen
+                            startActivity(new Intent(RegisterPicture.this, RegisterHobbys.class));
+
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
