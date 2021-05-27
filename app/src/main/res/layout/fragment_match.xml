@@ -166,43 +166,37 @@
         app:layout_constraintTop_toBottomOf="@+id/circle5" />
 
     <Button
-        android:id="@+id/matchBtn"
+        android:id="@+id/chatBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="400dp"
-        android:layout_marginEnd="20dp"
-        android:text="Match"
-        app:layout_constraintEnd_toStartOf="@+id/nextBtn"
+        android:layout_marginStart="50dp"
+        android:text="Chat"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toStartOf="@+id/nextBtn2"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/profilePicture" />
 
-    <TextView
-        android:id="@+id/hobby6"
-        android:layout_width="123dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="36dp"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/hobby5" />
-
     <Button
-        android:id="@+id/nextBtn"
+        android:id="@+id/nextBtn2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
         android:layout_marginTop="400dp"
+        android:layout_marginEnd="50dp"
         android:text="Next"
+        android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/matchBtn"
+        app:layout_constraintStart_toEndOf="@+id/chatBtn"
         app:layout_constraintTop_toTopOf="@+id/fullName" />
 
     <TextView
         android:id="@+id/noMatches"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="No more matches \n Try again later!"
         android:textColor="@color/tw__composer_red"
@@ -212,6 +206,36 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/matchBtn" />
+
+    <Button
+        android:id="@+id/matchBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="448dp"
+        android:text="Match"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profilePicture" />
+
+    <Button
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="448dp"
+        android:layout_marginEnd="72dp"
+        android:text="Next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fullName" />
+
+    <TextView
+        android:id="@+id/hobby6"
+        android:layout_width="123dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="40dp"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/hobby5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
