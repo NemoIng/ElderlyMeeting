@@ -199,7 +199,9 @@ public class MatchFragment extends Fragment {
                 for (DataSnapshot childDataSnapshot : datasnapshot.getChildren()) {
                     friendListSize++;
                 }
-                        friendsReference.child("friend" + (friendListSize+1)).setValue(currentMatch).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        friendsReference.child("friend" + (friendListSize+1))
+                                .setValue(currentMatch)
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
                                 toChat(currentMatch);

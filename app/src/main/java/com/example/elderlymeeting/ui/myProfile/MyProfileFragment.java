@@ -56,6 +56,7 @@ public class MyProfileFragment extends Fragment {
 
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        assert firebaseUser != null;
         String id = firebaseUser.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");

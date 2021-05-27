@@ -59,6 +59,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         public TextView hobby;
         public ImageView picture;
 
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
