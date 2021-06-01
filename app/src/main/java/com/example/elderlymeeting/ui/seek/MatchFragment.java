@@ -33,7 +33,7 @@ public class MatchFragment extends Fragment {
     View view;
 
     ImageView profilePicture, circle2, circle3, circle4, circle5, circle6;
-    TextView fullName, email, bio, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, noMatches;
+    TextView fullName, age, email, bio, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, noMatches;
     Button matchBtn, nextBtn, chatBtn, nextBtn2;
 
     DatabaseReference databaseReference;
@@ -62,6 +62,7 @@ public class MatchFragment extends Fragment {
         databaseReference = firebaseDatabase.getReference("Users");
 
         fullName = (TextView) view.findViewById(R.id.fullName);
+        age = (TextView) view.findViewById(R.id.age);
         email = (TextView) view.findViewById(R.id.email);
         profilePicture = (ImageView) view.findViewById(R.id.profilePicture);
         bio = (TextView) view.findViewById(R.id.biography);
@@ -152,6 +153,9 @@ public class MatchFragment extends Fragment {
                         .centerCrop()
                         .override(300, 300)
                         .into(profilePicture);
+
+                String ageString = snapshot.child(id).child("age").getValue().toString();
+                age.setText(ageString);
 
                 String bioString = snapshot.child(id).child("bio").getValue(String.class);
                 bio.setText(bioString);
