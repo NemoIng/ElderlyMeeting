@@ -155,7 +155,7 @@ public class MatchFragment extends Fragment {
                         .into(profilePicture);
 
                 String ageString = snapshot.child(id).child("age").getValue().toString();
-                age.setText(ageString);
+                age.setText(ageString + " years old");
 
                 String bioString = snapshot.child(id).child("bio").getValue(String.class);
                 bio.setText(bioString);

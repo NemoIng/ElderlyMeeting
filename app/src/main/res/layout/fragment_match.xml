@@ -23,14 +23,14 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="48dp"
         android:text=""
-        android:textSize="24dp"
+        android:textSize="30dp"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/biography"
         android:layout_width="151dp"
-        android:layout_height="102dp"
+        android:layout_height="130dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
         android:text=""
@@ -241,8 +241,9 @@
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/fullName" />
 

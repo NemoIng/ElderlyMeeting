@@ -5,10 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.elderlymeeting.R;
 import com.example.elderlymeeting.ui.messaging.MessageFragment;
-import com.example.elderlymeeting.ui.users.UserAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,12 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FriendsFragment extends Fragment{
-
-    private RelativeLayout recyclerView;
-    private UserAdapter userAdapter;
 
     String receiver, myID;
     private FirebaseAuth mAuth;
@@ -45,10 +37,6 @@ public class FriendsFragment extends Fragment{
 
     ListView listView;
 
-    public FriendsFragment(){
-        // Empty
-    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
@@ -56,7 +44,6 @@ public class FriendsFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        //get userID of logged in user
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         assert firebaseUser != null;

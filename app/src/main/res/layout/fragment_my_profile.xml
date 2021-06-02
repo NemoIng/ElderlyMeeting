@@ -33,7 +33,7 @@
         android:layout_marginStart="12dp"
         android:layout_marginTop="48dp"
         android:text=""
-        android:textSize="24dp"
+        android:textSize="30dp"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -41,19 +41,19 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="16dp"
         android:text=""
         android:textSize="15dp"
-        app:layout_constraintStart_toEndOf="@+id/profilePicture"
-        app:layout_constraintTop_toBottomOf="@+id/fullName" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
     <TextView
         android:id="@+id/biography"
         android:layout_width="151dp"
-        android:layout_height="102dp"
+        android:layout_height="130dp"
         android:layout_marginStart="36dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="64dp"
         android:text=""
         android:textSize="15dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -195,6 +195,16 @@
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/hobby6"
         app:layout_constraintTop_toBottomOf="@+id/circle5" />
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="40dp"
+        android:textSize="16dp"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintTop_toBottomOf="@+id/fullName" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
