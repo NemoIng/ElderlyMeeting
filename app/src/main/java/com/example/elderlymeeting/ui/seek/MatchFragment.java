@@ -38,16 +38,19 @@ public class MatchFragment extends Fragment {
 
     DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
-    String myID;
+    String myID, otherID;
 
     ArrayList<String> IDs = new ArrayList<>();
     ListIterator<String> idList;
 
     int FRIENDLIMIT = 50;
     int friendListSize = 0;
+    int i;
 
     ArrayList<String> friends = new ArrayList<>();
     ListIterator<String> friendsList = friends.listIterator();
+    DatabaseReference friendsReference;
+
 
     String currentMatch;
 
@@ -60,6 +63,7 @@ public class MatchFragment extends Fragment {
         myID = firebaseUser.getUid();
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
+        friendsReference = databaseReference.child(myID).child("friends");
 
         fullName = (TextView) view.findViewById(R.id.fullName);
         age = (TextView) view.findViewById(R.id.age);
@@ -74,15 +78,31 @@ public class MatchFragment extends Fragment {
         hobby5 = (TextView) view.findViewById(R.id.hobby5);
         hobby6 = (TextView) view.findViewById(R.id.hobby6);
 
+
         databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                    if (!childDataSnapshot.getKey().equals(myID)){
+                    if (!childDataSnapshot.getKey().equals(myID)) {
                         IDs.add(childDataSnapshot.getKey());
-                        idList = IDs.listIterator();
-                        setProfile(idList.next());
                     }
                 }
+                        friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                for (i=0; i<IDs.size(); i++) {
+                                    for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
+                                        if (childDataSnapshot.getValue().equals(IDs.get(i))) {
+                                            IDs.remove(i);
+                                        }
+                                    }
+                                }
+                                idList = IDs.listIterator();
+                                setProfile(idList.next());
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+                        });
             }
 
             @Override
@@ -224,7 +244,7 @@ public class MatchFragment extends Fragment {
     private void matchUser(){
         friendListSize = 0;
         currentMatch = idList.previous();
-        DatabaseReference friendsReference = databaseReference.child(myID).child("friends");
+        DatabaseReference otherReference = databaseReference.child(currentMatch).child("friends");
         friendsReference.addListenerForSingleValueEvent( new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot datasnapshot) {
@@ -236,7 +256,27 @@ public class MatchFragment extends Fragment {
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                chatButton();
+                                otherReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                        friendListSize=0;
+                                        for (DataSnapshot childDataSnapshot : datasnapshot.getChildren()) {
+                                            friendListSize++;
+                                        }
+                                        otherReference.child("friend" + (friendListSize+1))
+                                                .setValue(myID)
+                                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                                        chatButton();
+                                                    }
+                                                });
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         });
             }
