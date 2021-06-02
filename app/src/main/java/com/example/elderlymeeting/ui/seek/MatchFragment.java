@@ -25,20 +25,22 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ListIterator;
 
 public class MatchFragment extends Fragment {
     View view;
 
-    ImageView profilePicture, circle2, circle3, circle4, circle5, circle6;
-    TextView fullName, age, email, bio, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, noMatches;
-    Button matchBtn, nextBtn, chatBtn, nextBtn2;
+    ImageView profilePicture, circle1, circle2, circle3, circle4, circle5, circle6;
+    TextView fullName, age, email, bio, hobbyText, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, noMatches;
+    Button matchBtn, nextBtn, chatBtn, nextBtn2, backBtn;
 
     DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
-    String myID, otherID;
+    String myID;
 
     ArrayList<String> IDs = new ArrayList<>();
     ListIterator<String> idList;
@@ -71,43 +73,15 @@ public class MatchFragment extends Fragment {
         profilePicture = (ImageView) view.findViewById(R.id.profilePicture);
         bio = (TextView) view.findViewById(R.id.biography);
 
+        noMatches = (TextView) view.findViewById(R.id.noMatches);
+
+        hobbyText = (TextView) view.findViewById(R.id.hobbies);
         hobby1 = (TextView) view.findViewById(R.id.hobby1);
         hobby2 = (TextView) view.findViewById(R.id.hobby2);
         hobby3 = (TextView) view.findViewById(R.id.hobby3);
         hobby4 = (TextView) view.findViewById(R.id.hobby4);
         hobby5 = (TextView) view.findViewById(R.id.hobby5);
         hobby6 = (TextView) view.findViewById(R.id.hobby6);
-
-
-        databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                    if (!childDataSnapshot.getKey().equals(myID)) {
-                        IDs.add(childDataSnapshot.getKey());
-                    }
-                }
-                        friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                for (i=0; i<IDs.size(); i++) {
-                                    for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
-                                        if (childDataSnapshot.getValue().equals(IDs.get(i))) {
-                                            IDs.remove(i);
-                                        }
-                                    }
-                                }
-                                idList = IDs.listIterator();
-                                setProfile(idList.next());
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
-                        });
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) { }
-        });
 
         chatBtn = (Button) view.findViewById(R.id.chatBtn);
         chatBtn.setOnClickListener(new View.OnClickListener() {
@@ -146,11 +120,66 @@ public class MatchFragment extends Fragment {
                     setProfile(idList.next());
                 }
                 else{
-                    noMatches = (TextView) view.findViewById(R.id.noMatches);
                     noMatches.setVisibility(view.VISIBLE);
                 }
             }
         });
+
+        backBtn = (Button) view.findViewById(R.id.backBtn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new SeekFragment())
+                        .commit();
+            }
+        });
+
+        databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
+                    if (!childDataSnapshot.getKey().equals(myID)) {
+                        IDs.add(childDataSnapshot.getKey());
+                    }
+                }
+                        friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                for (i=0; i<IDs.size(); i++) {
+                                    for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
+                                        if (childDataSnapshot.getValue().equals(IDs.get(i))) {
+                                            IDs.remove(i);
+                                        }
+                                    }
+                                }
+                                Collections.shuffle(IDs);
+
+                                idList = IDs.listIterator();
+                                if (idList.hasNext()){
+                                    setProfile(idList.next());
+                                } else{
+                                    circle1 = (ImageView) view.findViewById(R.id.circle1);
+                                    circle1.setVisibility(view.GONE);
+                                    bio.setVisibility(view.GONE);
+                                    hobbyText.setVisibility(view.GONE);
+                                    matchBtn.setVisibility(view.GONE);
+                                    nextBtn.setVisibility(View.GONE);
+                                    noMatches.setVisibility(view.VISIBLE);
+                                    backBtn.setVisibility(view.VISIBLE);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+                        });
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) { }
+        });
+
+
 
         return view;
     }
@@ -298,9 +327,10 @@ public class MatchFragment extends Fragment {
 
     private void chatButton(){
         matchBtn.setVisibility(view.GONE);
-        chatBtn.setVisibility(view.getVisibility());
+        chatBtn.setVisibility(view.VISIBLE);
         nextBtn.setVisibility(View.GONE);
-        nextBtn2.setVisibility(view.getVisibility());
+        nextBtn2.setVisibility(view.VISIBLE);
     }
+
 }
 
