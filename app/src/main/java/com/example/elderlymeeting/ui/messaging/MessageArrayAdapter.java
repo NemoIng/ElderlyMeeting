@@ -40,7 +40,7 @@ public class MessageArrayAdapter extends ArrayAdapter<MessageList> {
         TextView message = listItemView.findViewById(R.id.messageOutput);
         message.setText(currentItem.getMessage());
 
-        TextView name = listItemView.findViewById(R.id.name);
+        TextView name = listItemView.findViewById(R.id.sender);
         name.setText(currentItem.getName());
 
         TextView date = listItemView.findViewById(R.id.messageDate);
