@@ -36,7 +36,7 @@ import java.util.Objects;
 public class MessageFragment extends Fragment {
 
     private EditText messageInput;
-    private String message, date, sender, senderID, messageSender;
+    private String message, date, nameString, sender;
     private LocalDateTime time;
     View view;
 
@@ -67,6 +67,18 @@ public class MessageFragment extends Fragment {
         DatabaseReference chatReference = firebaseDatabase.getReference("Chats");
         DatabaseReference userReference = firebaseDatabase.getReference("Users");
 
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                nameString = snapshot.child(id).child("fullName").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+            }
+        });
+
         chatReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
@@ -83,20 +95,9 @@ public class MessageFragment extends Fragment {
                                     .getValue(String.class), receiver)) ) {
                         message = childDataSnapshot.child("message").getValue(String.class);
                         date = childDataSnapshot.child("date").getValue(String.class);
-                        senderID = childDataSnapshot.child("sender").getValue(String.class);
-                        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                messageSender = snapshot.child(senderID).child("fullName")
-                                        .getValue(String.class);
-                            }
+                        sender = childDataSnapshot.child("senderName").getValue(String.class);
 
-                            @Override
-                            public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                            }
-                        });
-                        messageList.add(new MessageList(messageSender, date, message));
+                        messageList.add(new MessageList(sender, date, message));
                     }
                 }
                 MessageArrayAdapter messageArrayAdapter =
@@ -120,7 +121,7 @@ public class MessageFragment extends Fragment {
                 time = LocalDateTime.now();
                 //must be input to send a message
                 if(!message.equals("")){
-                    sendMessage(id, receiver, message, time);
+                    sendMessage(id, nameString, receiver, message, time);
                 }
                 //set message input to an empty string
                 messageInput.setText("");
@@ -134,12 +135,13 @@ public class MessageFragment extends Fragment {
         return view;
     }
 
-    private void sendMessage(String sender, String receiver, String message, LocalDateTime time){
+    private void sendMessage(String sender, String senderName, String receiver, String message, LocalDateTime time){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");
 
         HashMap<String, Object> hashMap = new HashMap<>();
         hashMap.put("sender", sender);
+        hashMap.put("senderName", senderName);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
         hashMap.put("date", dtf.format(time));
