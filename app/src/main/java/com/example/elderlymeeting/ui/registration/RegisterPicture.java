@@ -130,11 +130,12 @@ public class RegisterPicture extends AppCompatActivity{
                                 public void onComplete(@NonNull @NotNull Task<Uri> task) {
                                     String url = task.getResult().toString();
                                     databaseReference.setValue(url);
+                                    Toast.makeText(RegisterPicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                    //Go to hobby screen
+                                    startActivity(new Intent(RegisterPicture.this, RegisterHobbys.class));
                                 }
                             });
-                            Toast.makeText(RegisterPicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
-                            //Go to hobby screen
-                            startActivity(new Intent(RegisterPicture.this, RegisterHobbys.class));
+
 
                         }
                     })
