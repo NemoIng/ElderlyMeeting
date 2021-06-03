@@ -28,7 +28,7 @@ public class MessageArrayAdapter extends ArrayAdapter<MessageList> {
 
         if (listItemView == null){
             listItemView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.message_item_left, parent, false);
+                    .inflate(R.layout.message_item, parent, false);
         }
 
         MessageList currentItem = getItem(position);
