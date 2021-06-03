@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -14,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.elderlymeeting.R;
 import com.example.elderlymeeting.ui.messaging.MessageFragment;
+import com.example.elderlymeeting.ui.registration.RegisterPicture;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -107,7 +109,7 @@ public class MatchFragment extends Fragment {
                 nextBtn.setVisibility(view.getVisibility());
                 chatBtn.setVisibility(view.GONE);
                 matchBtn.setVisibility(view.getVisibility());
-                setProfile(idList.next());
+                idList.next();
                 setProfile(idList.next());
             }
         });
@@ -143,6 +145,7 @@ public class MatchFragment extends Fragment {
                         IDs.add(childDataSnapshot.getKey());
                     }
                 }
+                Toast.makeText(view.getContext(), String.valueOf(IDs.size()), Toast.LENGTH_SHORT).show();
                         friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -151,8 +154,11 @@ public class MatchFragment extends Fragment {
                                         if (childDataSnapshot.getValue().equals(IDs.get(i))) {
                                             IDs.remove(i);
                                         }
+
                                     }
                                 }
+                                Toast.makeText(view.getContext(), String.valueOf(l), Toast.LENGTH_SHORT).show();
+
                                 Collections.shuffle(IDs);
 
                                 idList = IDs.listIterator();
@@ -329,7 +335,15 @@ public class MatchFragment extends Fragment {
         matchBtn.setVisibility(view.GONE);
         chatBtn.setVisibility(view.VISIBLE);
         nextBtn.setVisibility(View.GONE);
-        nextBtn2.setVisibility(view.VISIBLE);
+        idList.next();
+        if (!idList.hasNext()){
+            if (noMatches.getVisibility() != view.VISIBLE){
+                noMatches.setVisibility(view.VISIBLE);
+            }
+        }
+        else{
+            nextBtn2.setVisibility(view.VISIBLE);
+        }
     }
 
 }
