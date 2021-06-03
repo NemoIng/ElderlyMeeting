@@ -5,18 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bumptech.glide.Glide;
 import com.example.elderlymeeting.R;
-import com.example.elderlymeeting.ui.friends.FriendsList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MessageArrayAdapter extends ArrayAdapter<MessageList> {
 
@@ -32,7 +28,7 @@ public class MessageArrayAdapter extends ArrayAdapter<MessageList> {
 
         if (listItemView == null){
             listItemView = LayoutInflater.from(getContext())
-                    .inflate(R.layout.message_item, parent, false);
+                    .inflate(R.layout.message_item_left, parent, false);
         }
 
         MessageList currentItem = getItem(position);

@@ -36,7 +36,7 @@ import java.util.Objects;
 public class MessageFragment extends Fragment {
 
     private EditText messageInput;
-    private String message, date, sender, senderID;
+    private String message, date, sender, senderID, messageSender;
     private LocalDateTime time;
     View view;
 
@@ -87,7 +87,7 @@ public class MessageFragment extends Fragment {
                         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                sender = snapshot.child(senderID).child("fullName")
+                                messageSender = snapshot.child(senderID).child("fullName")
                                         .getValue(String.class);
                             }
 
@@ -96,7 +96,7 @@ public class MessageFragment extends Fragment {
 
                             }
                         });
-                        messageList.add(new MessageList(sender, date, message));
+                        messageList.add(new MessageList(messageSender, date, message));
                     }
                 }
                 MessageArrayAdapter messageArrayAdapter =
