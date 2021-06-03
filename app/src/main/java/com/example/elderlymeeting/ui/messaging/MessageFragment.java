@@ -67,10 +67,11 @@ public class MessageFragment extends Fragment {
         DatabaseReference chatReference = firebaseDatabase.getReference("Chats");
         DatabaseReference userReference = firebaseDatabase.getReference("Users");
 
-        chatReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        chatReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot childDataSnapshot : dataSnapshot.getChildren()){
+                messageList.clear();
+                for(DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
                     if((Objects.equals(childDataSnapshot.child("receiver")
                             .getValue(String.class), receiver)
                             && Objects.equals(childDataSnapshot.child("sender")
@@ -79,7 +80,7 @@ public class MessageFragment extends Fragment {
                             (Objects.equals(childDataSnapshot.child("receiver")
                                     .getValue(String.class), id)
                                     && Objects.equals(childDataSnapshot.child("sender")
-                                    .getValue(String.class), receiver)) ){
+                                    .getValue(String.class), receiver)) ) {
                         message = childDataSnapshot.child("message").getValue(String.class);
                         date = childDataSnapshot.child("date").getValue(String.class);
                         senderID = childDataSnapshot.child("sender").getValue(String.class);
@@ -98,8 +99,6 @@ public class MessageFragment extends Fragment {
                         messageList.add(new MessageList(sender, date, message));
                     }
                 }
-                //oldest messages are first in the database, so we reverse
-                //Collections.reverse(messageList);
                 MessageArrayAdapter messageArrayAdapter =
                         new MessageArrayAdapter(view.getContext(), 0, messageList);
                 listView.setAdapter(messageArrayAdapter);
