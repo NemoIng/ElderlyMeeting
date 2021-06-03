@@ -26,6 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class MyProfileFragment extends Fragment {
 
     Button logoutBtn;
@@ -72,10 +74,13 @@ public class MyProfileFragment extends Fragment {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                String fullNameString = snapshot.child(myId).child("fullName").getValue(String.class);
+                String fullNameString = snapshot.child(myId).child("fullName")
+                        .getValue(String.class);
                 fullName.setText(fullNameString);
 
-                String ageString = snapshot.child(myId).child("age").getValue().toString();
+                String ageString = Objects.requireNonNull(snapshot.child(myId).child("age")
+                        .getValue())
+                        .toString();
                 age.setText(ageString + " years old");
 
                 String emailString = snapshot.child(myId).child("email").getValue(String.class);
@@ -91,11 +96,14 @@ public class MyProfileFragment extends Fragment {
                 String bioString = snapshot.child(myId).child("bio").getValue(String.class);
                 bio.setText(bioString);
 
-                String hobby1String = snapshot.child(myId).child("hobbys").child("hobby1").getValue(String.class);
+                String hobby1String = snapshot.child(myId).child("hobbys").child("hobby1")
+                        .getValue(String.class);
                 hobby1.setText(hobby1String);
 
-                String hobby2String = snapshot.child(myId).child("hobbys").child("hobby2").getValue(String.class);
+                String hobby2String = snapshot.child(myId).child("hobbys").child("hobby2")
+                        .getValue(String.class);
                 circle2 = (ImageView) view.findViewById(R.id.circle2);
+                assert hobby2String != null;
                 if(!hobby2String.isEmpty()){
                     circle2.setVisibility(view.VISIBLE);
                 }
@@ -103,6 +111,7 @@ public class MyProfileFragment extends Fragment {
 
                 String hobby3String = snapshot.child(myId).child("hobbys").child("hobby3").getValue(String.class);
                 circle3 = (ImageView) view.findViewById(R.id.circle3);
+                assert hobby3String != null;
                 if(!hobby3String.isEmpty()){
                     circle3.setVisibility(view.VISIBLE);
                 }
@@ -110,6 +119,7 @@ public class MyProfileFragment extends Fragment {
 
                 String hobby4String = snapshot.child(myId).child("hobbys").child("hobby4").getValue(String.class);
                 circle4 = (ImageView) view.findViewById(R.id.circle4);
+                assert hobby4String != null;
                 if(!hobby4String.isEmpty()){
                     circle4.setVisibility(view.VISIBLE);
                 }
@@ -117,6 +127,7 @@ public class MyProfileFragment extends Fragment {
 
                 String hobby5String = snapshot.child(myId).child("hobbys").child("hobby5").getValue(String.class);
                 circle5 = (ImageView) view.findViewById(R.id.circle5);
+                assert hobby5String != null;
                 if(!hobby5String.isEmpty()){
                     circle5.setVisibility(view.VISIBLE);
                 }
@@ -124,6 +135,7 @@ public class MyProfileFragment extends Fragment {
 
                 String hobby6String = snapshot.child(myId).child("hobbys").child("hobby6").getValue(String.class);
                 circle6 = (ImageView) view.findViewById(R.id.circle6);
+                assert hobby6String != null;
                 if(!hobby6String.isEmpty()){
                     circle6.setVisibility(view.VISIBLE);
                 }

@@ -17,7 +17,8 @@ import com.example.elderlymeeting.R;
 import java.util.ArrayList;
 
 public class FriendArrayAdapter extends ArrayAdapter<FriendsList> {
-    public FriendArrayAdapter(@NonNull Context context, int resource, @NonNull ArrayList<FriendsList> friendsLists) {
+    public FriendArrayAdapter(@NonNull Context context, int resource,
+                              @NonNull ArrayList<FriendsList> friendsLists) {
         super(context, resource, friendsLists);
     }
 
@@ -27,7 +28,8 @@ public class FriendArrayAdapter extends ArrayAdapter<FriendsList> {
         View listItemView = convertView;
 
         if (listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.user_item, parent, false);
+            listItemView = LayoutInflater.from(getContext())
+                    .inflate(R.layout.user_item, parent, false);
         }
 
         FriendsList currentItem = getItem(position);
