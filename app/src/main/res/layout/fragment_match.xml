@@ -18,8 +18,8 @@
 
     <TextView
         android:id="@+id/fullName"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_width="242dp"
+        android:layout_height="79dp"
         android:layout_marginStart="12dp"
         android:layout_marginTop="48dp"
         android:text=""
@@ -243,8 +243,8 @@
         android:id="@+id/age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
         app:layout_constraintTop_toBottomOf="@+id/fullName" />
@@ -253,11 +253,11 @@
         android:id="@+id/backBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="356dp"
+        android:layout_marginTop="312dp"
         android:text="@string/back"
         android:visibility="invisible"
         app:layout_constraintEnd_toStartOf="@+id/nextBtn2"
-        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toEndOf="@+id/chatBtn"
         app:layout_constraintTop_toBottomOf="@+id/fullName" />
 
