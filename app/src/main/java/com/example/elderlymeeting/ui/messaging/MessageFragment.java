@@ -66,7 +66,7 @@ public class MessageFragment extends Fragment {
         DatabaseReference chatReference = firebaseDatabase.getReference("Chats");
         DatabaseReference userReference = firebaseDatabase.getReference("Users");
 
-        chatReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        chatReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot childDataSnapshot : dataSnapshot.getChildren()){
@@ -124,6 +124,7 @@ public class MessageFragment extends Fragment {
                 }
                 //set message input to an empty string
                 messageInput.setText("");
+
             }
         });
 
