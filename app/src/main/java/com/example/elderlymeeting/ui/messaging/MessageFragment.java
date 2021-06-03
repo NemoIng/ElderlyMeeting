@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.elderlymeeting.R;
 import com.example.elderlymeeting.ui.friends.FriendArrayAdapter;
@@ -66,7 +67,7 @@ public class MessageFragment extends Fragment {
         DatabaseReference chatReference = firebaseDatabase.getReference("Chats");
         DatabaseReference userReference = firebaseDatabase.getReference("Users");
 
-        chatReference.addValueEventListener(new ValueEventListener() {
+        chatReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot childDataSnapshot : dataSnapshot.getChildren()){
@@ -142,7 +143,7 @@ public class MessageFragment extends Fragment {
         hashMap.put("sender", sender);
         hashMap.put("receiver", receiver);
         hashMap.put("message", message);
-        hashMap.put("time", dtf.format(time));
+        hashMap.put("date", dtf.format(time));
 
         reference.child("Chats").push().setValue(hashMap);
     }

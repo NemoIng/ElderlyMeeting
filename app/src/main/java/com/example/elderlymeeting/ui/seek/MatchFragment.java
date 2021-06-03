@@ -145,40 +145,37 @@ public class MatchFragment extends Fragment {
                         IDs.add(childDataSnapshot.getKey());
                     }
                 }
-                Toast.makeText(view.getContext(), String.valueOf(IDs.size()), Toast.LENGTH_SHORT).show();
-                        friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                for (i=0; i<IDs.size(); i++) {
-                                    for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
-                                        if (childDataSnapshot.getValue().equals(IDs.get(i))) {
-                                            IDs.remove(i);
-                                        }
-
-                                    }
+                friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        for (i=0; i<IDs.size(); i++) {
+                            for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
+                                if (childDataSnapshot.getValue().equals(IDs.get(i))) {
+                                    IDs.remove(i);
                                 }
-                                Toast.makeText(view.getContext(), String.valueOf(l), Toast.LENGTH_SHORT).show();
 
-                                Collections.shuffle(IDs);
-
-                                idList = IDs.listIterator();
-                                if (idList.hasNext()){
-                                    setProfile(idList.next());
-                                } else{
-                                    circle1 = (ImageView) view.findViewById(R.id.circle1);
-                                    circle1.setVisibility(view.GONE);
-                                    bio.setVisibility(view.GONE);
-                                    hobbyText.setVisibility(view.GONE);
-                                    matchBtn.setVisibility(view.GONE);
-                                    nextBtn.setVisibility(View.GONE);
-                                    noMatches.setVisibility(view.VISIBLE);
-                                    backBtn.setVisibility(view.VISIBLE);
-                                }
                             }
+                        }
+                        Collections.shuffle(IDs);
 
-                            @Override
-                            public void onCancelled(@NonNull @NotNull DatabaseError error) { }
-                        });
+                        idList = IDs.listIterator();
+                        if (idList.hasNext()){
+                            setProfile(idList.next());
+                        } else{
+                            circle1 = (ImageView) view.findViewById(R.id.circle1);
+                            circle1.setVisibility(view.GONE);
+                            bio.setVisibility(view.GONE);
+                            hobbyText.setVisibility(view.GONE);
+                            matchBtn.setVisibility(view.GONE);
+                            nextBtn.setVisibility(View.GONE);
+                            noMatches.setVisibility(view.VISIBLE);
+                            backBtn.setVisibility(view.VISIBLE);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull @NotNull DatabaseError error) { }
+                });
             }
 
             @Override
