@@ -45,6 +45,7 @@ public class RegisterBio extends AppCompatActivity {
 
     }
 
+    //let the user create their bio
     private void submitBio(){
         String bio;
 
@@ -63,8 +64,10 @@ public class RegisterBio extends AppCompatActivity {
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
 
-        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(id).child("bio");
-
+        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users")
+                .child(id)
+                .child("bio");
+        //push to database
         myRef.setValue(bio).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

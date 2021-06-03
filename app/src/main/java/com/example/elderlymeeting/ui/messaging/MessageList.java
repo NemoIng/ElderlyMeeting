@@ -1,5 +1,6 @@
 package com.example.elderlymeeting.ui.messaging;
 
+//values of an index in the messageList
 public class MessageList {
     private String name, date, message;
 

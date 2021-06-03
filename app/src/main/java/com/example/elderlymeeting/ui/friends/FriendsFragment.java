@@ -32,11 +32,8 @@ import java.util.Objects;
 
 public class FriendsFragment extends Fragment{
 
-    private RelativeLayout recyclerView;
 
-    String receiver, myID;
-
-    String fullName, profilePicture, age;
+    String receiver, myID, fullName, profilePicture, age;
 
     ArrayList<FriendsList> customList = new ArrayList<>();
     ArrayList<String> friendsList = new ArrayList<>();
@@ -54,11 +51,12 @@ public class FriendsFragment extends Fragment{
 
         View view = inflater.inflate(R.layout.fragment_friends, container, false);
 
-        //get userID of logged in user
+        //get user ID of current user
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         assert firebaseUser != null;
         myID = firebaseUser.getUid();
+
         listView = (ListView) view.findViewById(R.id.main_listview);
 
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
@@ -67,6 +65,7 @@ public class FriendsFragment extends Fragment{
                 .child("friends");
         DatabaseReference userReference = firebaseDatabase.getReference("Users");
 
+        //display all friends of the current user
         friendsReference.addListenerForSingleValueEvent( new ValueEventListener() {
             public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
@@ -105,6 +104,7 @@ public class FriendsFragment extends Fragment{
             }
         });
 
+        //go to the chat with the friend the current user clicks on
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

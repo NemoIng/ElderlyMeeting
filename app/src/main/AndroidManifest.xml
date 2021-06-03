@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ElderlyMeeting">
         <activity android:name=".ui.registration.RegisterBio"></activity>
-        <activity android:name=".ui.registration.RegisterHobbys" />
+        <activity android:name=".ui.registration.RegisterHobbies" />
         <activity android:name=".ui.registration.RegisterPicture" />
         <activity android:name=".ui.registration.RegisterPage" />
         <activity

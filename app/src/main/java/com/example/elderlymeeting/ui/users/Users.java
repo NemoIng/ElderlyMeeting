@@ -1,5 +1,6 @@
 package com.example.elderlymeeting.ui.users;
 
+//all values on a users profile
 public class Users {
 
     private String id, fullName, age, email, bio, picture;

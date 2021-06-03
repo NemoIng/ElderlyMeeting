@@ -53,6 +53,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
     private void registerUser() {
         String email, password, password2, fullName, age;
 
+        //set values for user profile
         email = editTextTextEmailAddress.getText().toString().trim();
         password = editTextTextPassword.getText().toString().trim();
         password2 = editTextTextPassword2.getText().toString().trim();
@@ -89,6 +90,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             editTextTextPassword2.requestFocus();
             return;
         }
+        //both passwords must match
         if(!password2.equals(password)){
             editTextTextPassword2.setError("Passwords do not match!");
             editTextTextPassword2.requestFocus();
@@ -104,29 +106,38 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
             editTextTextEmailAddress.requestFocus();
             return;
         }
+        //password must be of sufficient length
         if(password.length() < 6){
             editTextTextPassword.setError("You need a password of at least 6 character!");
             editTextTextPassword.requestFocus();
             return;
         }
-
+        //push users account to database
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(auth -> {
                     if(auth.isSuccessful()){
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         String id = firebaseUser.getUid();
-                        Users users = new Users(id, fullName, age, email, null, null, null);
+                        Users users = new Users(id, fullName, age, email, null, null,
+                                null);
 
-                        DatabaseReference myRef = FirebaseDatabase.getInstance().getReference("Users").child(id);
+                        DatabaseReference myRef = FirebaseDatabase.getInstance()
+                                .getReference("Users").child(id);
 
-                                myRef.setValue(users).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                myRef.setValue(users)
+                                        .addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()){
-                                            Toast.makeText(RegisterPage.this, "User has been Registered succesfully!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(RegisterPage.this,
+                                                    "User has been Registered succesfully!",
+                                                    Toast.LENGTH_LONG).show();
 
-                                            Intent i = new Intent(RegisterPage.this, RegisterPicture.class);
-                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
+                                            //pick a profile picture
+                                            Intent i = new Intent(RegisterPage.this,
+                                                    RegisterPicture.class);
+                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent
+                                                    .FLAG_ACTIVITY_NEW_TASK );
                                             startActivity(i);
                                             finish();
                                         }
@@ -135,7 +146,8 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
 
                      }
                     else{
-                        Toast.makeText(RegisterPage.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(RegisterPage.this,
+                                "Failed to register! Try again!", Toast.LENGTH_LONG).show();
                     }
                 });
     }

@@ -32,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     FirebaseAuth auth;
     FirebaseUser firebaseUser;
 
+    //if user is still logged in, go to the home screen
     protected void onStart() {
         super.onStart();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         emailEditText = findViewById(R.id.email);
         passwordEditText = findViewById(R.id.password);
 
+        //if the user has no account yet, go to the register page
         registerBtn = findViewById(R.id.register);
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,31 +63,37 @@ public class LoginActivity extends AppCompatActivity {
         }
         );
 
-        // Firebase:
         auth = FirebaseAuth.getInstance();
 
-        //Login:
+        //if the user has an account, but is not logged in: log in
         loginBtn = findViewById(R.id.login);
-
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //set email and password
                 String emailText = emailEditText.getText().toString();
                 String passwordText = passwordEditText.getText().toString();
 
+                //check if all fields are filled in
                 if (TextUtils.isEmpty(emailText) || TextUtils.isEmpty(passwordText)) {
-                    Toast.makeText(LoginActivity.this, "Please fill in all Fields", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Please fill in all Fields",
+                            Toast.LENGTH_SHORT).show();
                 } else {
-                    auth.signInWithEmailAndPassword(emailText, passwordText).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    //use firebase authentication to log in
+                    auth.signInWithEmailAndPassword(emailText, passwordText)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull @NotNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                Intent i = new Intent(LoginActivity.this,
+                                        HomeActivity.class);
+                                i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                                        Intent.FLAG_ACTIVITY_NEW_TASK);
                                 startActivity(i);
                                 finish();
                             } else {
-                                Toast.makeText(LoginActivity.this, "Login credentials unknown", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this,
+                                        "Login credentials unknown", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });

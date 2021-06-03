@@ -32,6 +32,7 @@ import com.google.firebase.storage.UploadTask;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class RegisterPicture extends AppCompatActivity{
 
@@ -47,7 +48,7 @@ public class RegisterPicture extends AppCompatActivity{
     StorageReference storageReference;
     private FirebaseAuth mAuth;
 
-
+    //let the user pick a profile picture
     // Credit to: https://www.simplifiedcoding.net/firebase-storage-tutorial-android/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,11 +66,13 @@ public class RegisterPicture extends AppCompatActivity{
             }
         });
         confirmBtn = (Button) findViewById(R.id.confirmButton);
+        //upload picture to database
         confirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(uploadTask != null && uploadTask.isInProgress()){
-                    Toast.makeText(RegisterPicture.this, "Upload in progress", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterPicture.this, "Upload in progress",
+                            Toast.LENGTH_LONG).show();
                 }
                 uploadPicture();
             }
@@ -82,11 +85,13 @@ public class RegisterPicture extends AppCompatActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null
+                && data.getData() != null) {
             filePath = data.getData();
             imageProfile.setImageURI(filePath);
             try {
-                ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(), filePath);
+                ImageDecoder.Source source = ImageDecoder.createSource(this.getContentResolver(),
+                        filePath);
                 Bitmap bitmap = ImageDecoder.decodeBitmap(source);
                 imageProfile.setImageBitmap(bitmap);
 
@@ -101,48 +106,47 @@ public class RegisterPicture extends AppCompatActivity{
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select your profile picture"), PICK_IMAGE_REQUEST);
+        startActivityForResult(Intent.createChooser(intent, "Select your profile picture"),
+                PICK_IMAGE_REQUEST);
     }
 
-    private String getExtension(Uri uri){
-        ContentResolver cr = getContentResolver();
-        MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
-        return mimeTypeMap.getExtensionFromMimeType(cr.getType(uri));
-    }
-
+    //upload picture to database
     private void uploadPicture () {
-            FirebaseUser firebaseUser = mAuth.getCurrentUser();
-            String id = firebaseUser.getUid();
+        FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        assert firebaseUser != null;
+        String id = firebaseUser.getUid();
 
-            StorageReference storageReference = this.storageReference.child(id);
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Users").child(id).child("profilePicture");
+        StorageReference storageReference = this.storageReference.child(id);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance()
+                .getReference("Users")
+                .child(id)
+                .child("profilePicture");
 
-
-
-
-
-            uploadTask = storageReference.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            storageReference.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                                @Override
+        //put picture in firebase storage
+        uploadTask = storageReference.putFile(filePath)
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        storageReference.getDownloadUrl().addOnCompleteListener(
+                                new OnCompleteListener<Uri>() {@Override
                                 public void onComplete(@NonNull @NotNull Task<Uri> task) {
-                                    String url = task.getResult().toString();
+                                    String url = Objects.requireNonNull(task.getResult()).toString();
+                                    //put image url in database
                                     databaseReference.setValue(url);
-                                    Toast.makeText(RegisterPicture.this, "Uploaded", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterPicture.this, "Uploaded",
+                                            Toast.LENGTH_SHORT).show();
                                     //Go to hobby screen
-                                    startActivity(new Intent(RegisterPicture.this, RegisterHobbys.class));
+                                    startActivity(new Intent(RegisterPicture.this,
+                                            RegisterHobbies.class));
                                 }
                             });
-
-
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RegisterPicture.this, "Failed "+e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RegisterPicture.this, "Failed "+e
+                                    .getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         }

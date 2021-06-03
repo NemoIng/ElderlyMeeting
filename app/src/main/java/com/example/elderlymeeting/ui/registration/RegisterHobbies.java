@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.elderlymeeting.R;
-import com.example.elderlymeeting.ui.users.Hobbys;
+import com.example.elderlymeeting.ui.users.Hobbies;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -20,7 +20,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import static java.lang.Integer.parseInt;
 
-public class RegisterHobbys extends AppCompatActivity {
+public class RegisterHobbies extends AppCompatActivity {
 
     private EditText editHobby1, editHobby2, editHobby3, editHobby4, editHobby5, editHobby6;
 
@@ -51,6 +51,7 @@ public class RegisterHobbys extends AppCompatActivity {
         editHobby6 = (EditText) findViewById(R.id.editHobby6);
     }
 
+    //let user write down a maximum of 6 and a minimum of 1 hobbies
     private void submitHobby(){
         String hobby1, hobby2, hobby3, hobby4, hobby5, hobby6;
 
@@ -97,21 +98,21 @@ public class RegisterHobbys extends AppCompatActivity {
             return;
         }
 
-        Hobbys hobbys = new Hobbys(hobby1, hobby2, hobby3, hobby4, hobby5, hobby6);
+        Hobbies hobbies = new Hobbies(hobby1, hobby2, hobby3, hobby4, hobby5, hobby6);
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
-
+        //push to database
         DatabaseReference myRef = FirebaseDatabase.getInstance()
                 .getReference("Users")
                 .child(id)
                 .child("hobbys");
 
-        myRef.setValue(hobbys).addOnCompleteListener(new OnCompleteListener<Void>() {
+        myRef.setValue(hobbies).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
 
-                    Intent i = new Intent(RegisterHobbys.this, RegisterBio.class);
+                    Intent i = new Intent(RegisterHobbies.this, RegisterBio.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK );
 
                     startActivity(i);

@@ -10,11 +10,8 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.elderlymeeting.R;
-import com.example.elderlymeeting.ui.friends.FriendArrayAdapter;
-import com.example.elderlymeeting.ui.friends.FriendsList;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,8 +23,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.HashMap;
 import java.time.format.DateTimeFormatter;
 import java.time.LocalDateTime;
@@ -36,15 +31,13 @@ import java.util.Objects;
 public class MessageFragment extends Fragment {
 
     private EditText messageInput;
-    private String message, date, nameString, sender;
+    private String message, date, nameString, sender, receiver;
     private LocalDateTime time;
     View view;
-
+    ListView listView;
     ArrayList<MessageList> messageList = new ArrayList<>();
 
-    String receiver;
-    ListView listView;
-
+    //set message receiver to the match you clicked on
     public MessageFragment(String currentMatch) {
         receiver = currentMatch;
     }
@@ -55,6 +48,7 @@ public class MessageFragment extends Fragment {
         super.onCreate(savedInstanceState);
         view = inflater.inflate(R.layout.fragment_message, container, false);
 
+        //get current user ID
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
 
@@ -67,6 +61,7 @@ public class MessageFragment extends Fragment {
         DatabaseReference chatReference = firebaseDatabase.getReference("Chats");
         DatabaseReference userReference = firebaseDatabase.getReference("Users");
 
+        //get name of sender to display with the messages
         userReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
@@ -79,6 +74,8 @@ public class MessageFragment extends Fragment {
             }
         });
 
+        //display all sent messages between the current user and a match of theirs,
+        // with the name of the sender and the date/time
         chatReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot dataSnapshot) {
@@ -114,6 +111,7 @@ public class MessageFragment extends Fragment {
         Button sendButton = (Button) view.findViewById(R.id.sendButton);
         messageInput = (EditText) view.findViewById(R.id.messageInput);
 
+        //send a message to your match
         sendButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -135,6 +133,7 @@ public class MessageFragment extends Fragment {
         return view;
     }
 
+    //push a message to the database
     private void sendMessage(String sender, String senderName, String receiver, String message, LocalDateTime time){
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm dd/MM/yyyy");

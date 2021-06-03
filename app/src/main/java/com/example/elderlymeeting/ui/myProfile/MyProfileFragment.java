@@ -43,6 +43,8 @@ public class MyProfileFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         view = inflater.inflate(R.layout.fragment_my_profile, container, false);
+
+        //log the user out
         logoutBtn = (Button) view.findViewById(R.id.logoutBtn);
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,6 +60,7 @@ public class MyProfileFragment extends Fragment {
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
 
+        //set values for the current users profile
         fullName = (TextView) view.findViewById(R.id.fullName);
         email = (TextView) view.findViewById(R.id.email);
         profilePicture = (ImageView) view.findViewById(R.id.profilePicture);
@@ -71,6 +74,7 @@ public class MyProfileFragment extends Fragment {
         hobby5 = (TextView) view.findViewById(R.id.hobby5);
         hobby6 = (TextView) view.findViewById(R.id.hobby6);
 
+        //show the current users profile
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {

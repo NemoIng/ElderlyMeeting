@@ -1,5 +1,6 @@
 package com.example.elderlymeeting.ui.friends;
 
+//values of an index in the friendList
 public class FriendsList {
 
     private String imageUrl, fullName, age;

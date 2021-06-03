@@ -31,8 +31,10 @@ public class MessageArrayAdapter extends ArrayAdapter<MessageList> {
                     .inflate(R.layout.message_item, parent, false);
         }
 
+        //get instances from the messageList
         MessageList currentItem = getItem(position);
 
+        //assign values to the layout fields
         TextView message = listItemView.findViewById(R.id.messageOutput);
         message.setText(currentItem.getMessage());
 

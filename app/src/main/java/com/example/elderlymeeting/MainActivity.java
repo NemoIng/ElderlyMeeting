@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.signIn:
+                //go to the log in tab
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.signUp:
+                //go to the register tab
                 startActivity(new Intent(this, RegisterPage.class));
                 break;
         }

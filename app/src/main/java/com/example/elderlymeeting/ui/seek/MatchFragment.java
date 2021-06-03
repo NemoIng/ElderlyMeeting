@@ -32,39 +32,36 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.ListIterator;
+import java.util.Objects;
 
 public class MatchFragment extends Fragment {
     View view;
 
     ImageView profilePicture, circle1, circle2, circle3, circle4, circle5, circle6;
-    TextView fullName, age, email, bio, hobbyText, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6, noMatches;
+    TextView fullName, age, email, bio, hobbyText, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6,
+            noMatches;
     Button matchBtn, nextBtn, chatBtn, nextBtn2, backBtn;
 
-    DatabaseReference databaseReference;
+    DatabaseReference databaseReference, friendsReference;
     private FirebaseAuth mAuth;
-    String myID;
+    String myID, currentMatch;
 
     ArrayList<String> IDs = new ArrayList<>();
     ListIterator<String> idList;
 
-    int FRIENDLIMIT = 50;
     int friendListSize = 0;
     int i;
-
-    ArrayList<String> friends = new ArrayList<>();
-    ListIterator<String> friendsList = friends.listIterator();
-    DatabaseReference friendsReference;
-
-
-    String currentMatch;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_match, container, false);
 
+        //get current user ID
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
+        assert firebaseUser != null;
         myID = firebaseUser.getUid();
+
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference("Users");
         friendsReference = databaseReference.child(myID).child("friends");
@@ -105,7 +102,7 @@ public class MatchFragment extends Fragment {
         nextBtn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                nextBtn2.setVisibility(View.GONE);
+                nextBtn2.setVisibility(view.GONE);
                 nextBtn.setVisibility(view.getVisibility());
                 chatBtn.setVisibility(view.GONE);
                 matchBtn.setVisibility(view.getVisibility());
@@ -131,26 +128,28 @@ public class MatchFragment extends Fragment {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                assert getFragmentManager() != null;
                 getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new SeekFragment())
                         .commit();
             }
         });
-
+        //show all users located in the database
         databaseReference.addListenerForSingleValueEvent( new ValueEventListener() {
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NotNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot childDataSnapshot : dataSnapshot.getChildren()) {
-                    if (!childDataSnapshot.getKey().equals(myID)) {
+                    if (!Objects.equals(childDataSnapshot.getKey(), myID)) {
                         IDs.add(childDataSnapshot.getKey());
                     }
                 }
+                        //remove users you are already friends with
                         friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                                 for (i=0; i<IDs.size(); i++) {
                                     for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
-                                        if (childDataSnapshot.getValue().equals(IDs.get(i))) {
+                                        if (Objects.equals(childDataSnapshot.getValue(), IDs.get(i))) {
                                             IDs.remove(i);
                                         }
 
@@ -168,7 +167,7 @@ public class MatchFragment extends Fragment {
                                     bio.setVisibility(view.GONE);
                                     hobbyText.setVisibility(view.GONE);
                                     matchBtn.setVisibility(view.GONE);
-                                    nextBtn.setVisibility(View.GONE);
+                                    nextBtn.setVisibility(view.GONE);
                                     noMatches.setVisibility(view.VISIBLE);
                                     backBtn.setVisibility(view.VISIBLE);
                                 }
@@ -180,7 +179,7 @@ public class MatchFragment extends Fragment {
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) { }
+            public void onCancelled(@NotNull DatabaseError databaseError) { }
         });
 
 
@@ -192,7 +191,7 @@ public class MatchFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
     }
 
-
+    //show the profiles of potential matches
     private void setProfile(String id){
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -207,62 +206,72 @@ public class MatchFragment extends Fragment {
                         .override(300, 300)
                         .into(profilePicture);
 
-                String ageString = snapshot.child(id).child("age").getValue().toString();
+                String ageString = Objects.requireNonNull(snapshot.child(id).child("age").getValue())
+                        .toString();
                 age.setText(ageString + " years old");
 
                 String bioString = snapshot.child(id).child("bio").getValue(String.class);
                 bio.setText(bioString);
 
-                String hobby1String = snapshot.child(id).child("hobbys").child("hobby1").getValue(String.class);
+                String hobby1String = snapshot.child(id).child("hobbys").child("hobby1")
+                        .getValue(String.class);
                 hobby1.setText(hobby1String);
 
-                String hobby2String = snapshot.child(id).child("hobbys").child("hobby2").getValue(String.class);
+                String hobby2String = snapshot.child(id).child("hobbys").child("hobby2")
+                        .getValue(String.class);
                 circle2 = (ImageView) view.findViewById(R.id.circle2);
+                assert hobby2String != null;
                 if(!hobby2String.isEmpty()){
                     circle2.setVisibility(view.VISIBLE);
                 }
                 else{
-                    circle2.setVisibility(View.INVISIBLE);
+                    circle2.setVisibility(view.INVISIBLE);
                 }
                 hobby2.setText(hobby2String);
 
                 String hobby3String = snapshot.child(id).child("hobbys").child("hobby3").getValue(String.class);
                 circle3 = (ImageView) view.findViewById(R.id.circle3);
+                assert hobby3String != null;
                 if(!hobby3String.isEmpty()){
                     circle3.setVisibility(view.VISIBLE);
                 }
                 else{
-                    circle3.setVisibility(View.INVISIBLE);
+                    circle3.setVisibility(view.INVISIBLE);
                 }
                 hobby3.setText(hobby3String);
 
                 String hobby4String = snapshot.child(id).child("hobbys").child("hobby4").getValue(String.class);
                 circle4 = (ImageView) view.findViewById(R.id.circle4);
+                assert hobby4String != null;
                 if(!hobby4String.isEmpty()){
                     circle4.setVisibility(view.VISIBLE);
                 }
                 else{
-                    circle4.setVisibility(View.INVISIBLE);
+                    circle4.setVisibility(view.INVISIBLE);
                 }
                 hobby4.setText(hobby4String);
 
-                String hobby5String = snapshot.child(id).child("hobbys").child("hobby5").getValue(String.class);
+                String hobby5String = snapshot.child(id).child("hobbys").child("hobby5")
+                        .getValue(String.class);
                 circle5 = (ImageView) view.findViewById(R.id.circle5);
+                assert hobby5String != null;
                 if(!hobby5String.isEmpty()){
                     circle5.setVisibility(view.VISIBLE);
                 }
                 else{
-                    circle5.setVisibility(View.INVISIBLE);
+                    circle5.setVisibility(view.INVISIBLE);
                 }
                 hobby5.setText(hobby5String);
 
-                String hobby6String = snapshot.child(id).child("hobbys").child("hobby6").getValue(String.class);
+                String hobby6String = snapshot.child(id).child("hobbys").child("hobby6")
+                        .getValue(String.class);
                 circle6 = (ImageView) view.findViewById(R.id.circle6);
+                assert hobby6String != null;
                 if(!hobby6String.isEmpty()){
                     circle6.setVisibility(view.VISIBLE);
                 }
                 else{
-                    circle6.setVisibility(View.INVISIBLE);
+                    circle6.setVisibility(view.INVISIBLE);
                 }
                 hobby6.setText(hobby6String);
             }
@@ -274,6 +283,7 @@ public class MatchFragment extends Fragment {
         });
     }
 
+    //add a user to the current users friend list and add current user to the other users friend list
     private void matchUser(){
         friendListSize = 0;
         currentMatch = idList.previous();
@@ -289,18 +299,23 @@ public class MatchFragment extends Fragment {
                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull @NotNull Task<Void> task) {
-                                otherReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                                otherReference.addListenerForSingleValueEvent(
+                                        new ValueEventListener() {
                                     @Override
-                                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                                    public void onDataChange(
+                                            @NonNull @NotNull DataSnapshot snapshot) {
                                         friendListSize=0;
-                                        for (DataSnapshot childDataSnapshot : datasnapshot.getChildren()) {
+                                        for (DataSnapshot childDataSnapshot :
+                                                datasnapshot.getChildren()) {
                                             friendListSize++;
                                         }
                                         otherReference.child("friend" + (friendListSize+1))
                                                 .setValue(myID)
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
-                                                    public void onComplete(@NonNull @NotNull Task<Void> task) {
+                                                    public void onComplete(
+                                                            @NonNull @NotNull Task<Void> task) {
+                                                        //open chat with newly matched friend
                                                         chatButton();
                                                     }
                                                 });
@@ -322,7 +337,9 @@ public class MatchFragment extends Fragment {
 
     }
 
+    //move to chat environment with current match
     private void toChat(String currentMatch){
+        assert getFragmentManager() != null;
         getFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new MessageFragment(currentMatch))
@@ -332,7 +349,7 @@ public class MatchFragment extends Fragment {
     private void chatButton(){
         matchBtn.setVisibility(view.GONE);
         chatBtn.setVisibility(view.VISIBLE);
-        nextBtn.setVisibility(View.GONE);
+        nextBtn.setVisibility(view.GONE);
         idList.next();
         if (!idList.hasNext()){
             if (noMatches.getVisibility() != view.VISIBLE){

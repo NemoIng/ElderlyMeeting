@@ -32,8 +32,10 @@ public class FriendArrayAdapter extends ArrayAdapter<FriendsList> {
                     .inflate(R.layout.user_item, parent, false);
         }
 
+        //get instance from friendList
         FriendsList currentItem = getItem(position);
 
+        //assign values to the layout fields
         ImageView profilePicture = listItemView.findViewById(R.id.profilePicture);
         Glide.with(getContext())
                 .load(currentItem.getImageUrl())

@@ -1,10 +1,11 @@
 package com.example.elderlymeeting.ui.users;
 
-public class Hobbys{
+//all hobbies that a user has
+public class Hobbies {
 
     private String hobby1, hobby2, hobby3, hobby4, hobby5, hobby6;
 
-    public Hobbys(String hobby1, String hobby2, String hobby3, String hobby4, String hobby5, String hobby6){
+    public Hobbies(String hobby1, String hobby2, String hobby3, String hobby4, String hobby5, String hobby6){
         this.hobby1 = hobby1;
         this.hobby2 = hobby2;
         this.hobby3 = hobby3;

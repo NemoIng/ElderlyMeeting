@@ -1,5 +1,6 @@
 package com.example.elderlymeeting.ui.seek;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -31,10 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 
 public class SeekFragment extends Fragment implements View.OnClickListener {
-
-    private FragmentActivity myContext;
-
-    private Button matchBtn;
     View view;
 
     @Override
@@ -43,21 +40,21 @@ public class SeekFragment extends Fragment implements View.OnClickListener {
 
         view = inflater.inflate(R.layout.fragment_seek, container, false);
 
-        matchBtn = (Button) view.findViewById(R.id.buttonMatch);
+        Button matchBtn = (Button) view.findViewById(R.id.buttonMatch);
         matchBtn.setOnClickListener(this);
         return view;
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
     public void onClick(View view) {
         Fragment selectedFragment = null;
-        switch (view.getId()) {
-            case R.id.buttonMatch:
-                getFragmentManager()
+        if (view.getId() == R.id.buttonMatch) {
+            assert getFragmentManager() != null;
+            getFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new MatchFragment())
                         .commit();
-                break;
         }
     }
 

@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
         BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
+        //go to friends tab
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.fragment_container, new FriendsFragment())
@@ -44,12 +45,15 @@ import com.google.firebase.database.FirebaseDatabase;
                     Fragment selectedFragment = null;
                     switch (item.getItemId()){
                         case R.id.friends:
+                            //go to the friends tab
                             selectedFragment = new FriendsFragment();
                             break;
                         case R.id.seek:
+                            //go to the match tab
                             selectedFragment = new SeekFragment();
                             break;
                         case R.id.myProfile:
+                            //go to "my profile" tab
                             selectedFragment = new MyProfileFragment();
                             break;
                     }
