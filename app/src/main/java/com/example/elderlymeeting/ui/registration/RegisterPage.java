@@ -118,8 +118,7 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
                     if(auth.isSuccessful()){
                         FirebaseUser firebaseUser = mAuth.getCurrentUser();
                         String id = firebaseUser.getUid();
-                        Users users = new Users(id, fullName, age, email, null, null,
-                                null);
+                        Users users = new Users(id, fullName, age, email);
 
                         DatabaseReference myRef = FirebaseDatabase.getInstance()
                                 .getReference("Users").child(id);
