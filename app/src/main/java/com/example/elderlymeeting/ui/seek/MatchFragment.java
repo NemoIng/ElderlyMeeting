@@ -151,7 +151,6 @@ public class MatchFragment extends Fragment {
                                     if (Objects.equals(childDataSnapshot.getValue(), IDs.get(i))) {
                                         IDs.remove(i);
                                     }
-
                                 }
                             }
                         }
@@ -286,7 +285,7 @@ public class MatchFragment extends Fragment {
                                             @NonNull @NotNull DataSnapshot snapshot) {
                                         friendListSize=0;
                                         for (DataSnapshot childDataSnapshot :
-                                                datasnapshot.getChildren()) {
+                                                snapshot.getChildren()) {
                                             friendListSize++;
                                         }
                                         otherReference.child("friend" + (friendListSize+1))
