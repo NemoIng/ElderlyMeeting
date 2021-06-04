@@ -37,7 +37,7 @@ import java.util.Objects;
 public class MatchFragment extends Fragment {
     View view;
 
-    ImageView profilePicture, circle1, circle2, circle3, circle4, circle5, circle6;
+    ImageView profilePicture, circle1, circle2, circle3, circle4;
     TextView fullName, age, email, bio, hobbyText, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6,
             noMatches;
     Button matchBtn, nextBtn, chatBtn, nextBtn2, backBtn;
@@ -79,8 +79,6 @@ public class MatchFragment extends Fragment {
         hobby2 = (TextView) view.findViewById(R.id.hobby2);
         hobby3 = (TextView) view.findViewById(R.id.hobby3);
         hobby4 = (TextView) view.findViewById(R.id.hobby4);
-        hobby5 = (TextView) view.findViewById(R.id.hobby5);
-        hobby6 = (TextView) view.findViewById(R.id.hobby6);
 
         chatBtn = (Button) view.findViewById(R.id.chatBtn);
         chatBtn.setOnClickListener(new View.OnClickListener() {
@@ -106,7 +104,6 @@ public class MatchFragment extends Fragment {
                 nextBtn.setVisibility(view.getVisibility());
                 chatBtn.setVisibility(view.GONE);
                 matchBtn.setVisibility(view.getVisibility());
-                idList.next();
                 setProfile(idList.next());
             }
         });
@@ -143,35 +140,36 @@ public class MatchFragment extends Fragment {
                         IDs.add(childDataSnapshot.getKey());
                     }
                 }
-                        //remove users you are already friends with
-                        friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                                for (i=0; i<IDs.size(); i++) {
-                                    for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
-                                        if (Objects.equals(childDataSnapshot.getValue(), IDs.get(i))) {
-                                            IDs.remove(i);
-                                        }
 
-                                    }
+                //remove users you are already friends with
+                friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                        for (i=0; i<IDs.size(); i++) {
+                            for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
+                                if (Objects.equals(childDataSnapshot.getValue(), IDs.get(i))) {
+                                    IDs.remove(i);
                                 }
-                                //shuffles the list of users
-                                Collections.shuffle(IDs);
 
-                                idList = IDs.listIterator();
-                                if (idList.hasNext()){
-                                    setProfile(idList.next());
-                                } else{
-                                    circle1 = (ImageView) view.findViewById(R.id.circle1);
-                                    circle1.setVisibility(view.GONE);
-                                    bio.setVisibility(view.GONE);
-                                    hobbyText.setVisibility(view.GONE);
-                                    matchBtn.setVisibility(view.GONE);
-                                    nextBtn.setVisibility(view.GONE);
-                                    noMatches.setVisibility(view.VISIBLE);
-                                    backBtn.setVisibility(view.VISIBLE);
-                                }
                             }
+                        }
+                        //shuffles the list of users
+                        Collections.shuffle(IDs);
+
+                        idList = IDs.listIterator();
+                        if (idList.hasNext()){
+                            setProfile(idList.next());
+                        } else{
+                            circle1 = (ImageView) view.findViewById(R.id.circle1);
+                            circle1.setVisibility(view.GONE);
+                            bio.setVisibility(view.GONE);
+                            hobbyText.setVisibility(view.GONE);
+                            matchBtn.setVisibility(view.GONE);
+                            nextBtn.setVisibility(view.GONE);
+                            noMatches.setVisibility(view.VISIBLE);
+                            backBtn.setVisibility(view.VISIBLE);
+                        }
+                    }
 
                             @Override
                             public void onCancelled(@NonNull @NotNull DatabaseError error) { }
@@ -198,7 +196,6 @@ public class MatchFragment extends Fragment {
             public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                 String fullNameString = snapshot.child(id).child("fullName").getValue(String.class);
                 fullName.setText(fullNameString);
-
                 String link = snapshot.child(id).child("profilePicture").getValue(String.class);
                 Glide.with(view)
                         .load(link)

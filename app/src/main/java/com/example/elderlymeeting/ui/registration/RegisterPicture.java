@@ -138,6 +138,7 @@ public class RegisterPicture extends AppCompatActivity{
                                     //Go to hobby screen
                                     startActivity(new Intent(RegisterPicture.this,
                                             RegisterHobbies.class));
+                                    finish();
                                 }
                             });
                         }

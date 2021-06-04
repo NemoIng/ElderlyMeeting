@@ -34,10 +34,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.signIn:
                 //go to the log in tab
                 startActivity(new Intent(this, LoginActivity.class));
+                finish();
                 break;
             case R.id.signUp:
                 //go to the register tab
                 startActivity(new Intent(this, RegisterPage.class));
+                finish();
                 break;
         }
     }

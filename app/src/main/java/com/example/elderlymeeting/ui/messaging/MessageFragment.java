@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.elderlymeeting.R;
+import com.example.elderlymeeting.ui.friends.FriendsFragment;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -124,6 +126,17 @@ public class MessageFragment extends Fragment {
                 //set message input to an empty string
                 messageInput.setText("");
 
+            }
+        });
+
+        ImageView backButton = (ImageView) view.findViewById(R.id.backBtn);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new FriendsFragment())
+                        .commit();
             }
         });
 

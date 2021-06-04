@@ -10,8 +10,9 @@
     <ListView
         android:id="@+id/messageList"
         android:layout_width="413dp"
-        android:layout_height="578dp"
+        android:layout_height="538dp"
         android:stackFromBottom="true"
+        android:layout_marginTop="60dp"
         android:transcriptMode="alwaysScroll"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,5 +44,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/messageInput" />
+
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_width="65dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

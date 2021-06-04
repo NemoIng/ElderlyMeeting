@@ -157,9 +157,11 @@ public class RegisterPage extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()){
             case R.id.backToMain:
                 startActivity(new Intent(this, MainActivity.class));
+                finish();
                 break;
             case R.id.register:
                 registerUser();
+                finish();
                 break;
         }
     }
