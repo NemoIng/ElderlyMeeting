@@ -55,41 +55,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editHobby3" />
 
-    <EditText
-        android:id="@+id/editHobby5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Hobby 5"
-        android:inputType="textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editHobby4" />
-
-    <EditText
-        android:id="@+id/editHobby6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:ems="10"
-        android:hint="Hobby 6"
-        android:inputType="textPersonName"
-        android:visibility="visible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editHobby5" />
-
     <Button
         android:id="@+id/hobbyConfirm"
         android:layout_width="163dp"
         android:layout_height="84dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginBottom="30dp"
         android:text="Confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toBottomOf="@+id/editHobby4" />
 
     <TextView
         android:id="@+id/textView3"
@@ -99,6 +74,5 @@
         android:gravity="center"
         android:text="Enter at least one hobby,\n you don't have to fill them all in."
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editHobby6" />
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

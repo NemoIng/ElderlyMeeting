@@ -10,7 +10,7 @@
         android:id="@+id/textView2"
         android:layout_width="321dp"
         android:layout_height="233dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Here you can start looking for new people to meet with!
 
@@ -24,7 +24,7 @@
         android:id="@+id/buttonMatch"
         android:layout_width="178dp"
         android:layout_height="77dp"
-        android:layout_marginBottom="112dp"
+        android:layout_marginBottom="100dp"
         android:text="Start looking for friends"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,7 +35,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="30dp"
         android:gravity="center"
         android:text="Be aware of scammers!\n Do not send personal or sensitive information to other people!"
         android:textColor="#E81C1C"

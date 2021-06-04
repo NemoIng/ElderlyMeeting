@@ -156,7 +156,7 @@ public class MatchFragment extends Fragment {
                                     }
                                 }
 
-                                Collections.shuffle(IDs);
+                                //Collections.shuffle(IDs);
 
                                 idList = IDs.listIterator();
                                 if (idList.hasNext()){
@@ -251,29 +251,7 @@ public class MatchFragment extends Fragment {
                 }
                 hobby4.setText(hobby4String);
 
-                String hobby5String = snapshot.child(id).child("hobbys").child("hobby5")
-                        .getValue(String.class);
-                circle5 = (ImageView) view.findViewById(R.id.circle5);
-                assert hobby5String != null;
-                if(!hobby5String.isEmpty()){
-                    circle5.setVisibility(view.VISIBLE);
-                }
-                else{
-                    circle5.setVisibility(view.INVISIBLE);
-                }
-                hobby5.setText(hobby5String);
 
-                String hobby6String = snapshot.child(id).child("hobbys").child("hobby6")
-                        .getValue(String.class);
-                circle6 = (ImageView) view.findViewById(R.id.circle6);
-                assert hobby6String != null;
-                if(!hobby6String.isEmpty()){
-                    circle6.setVisibility(view.VISIBLE);
-                }
-                else{
-                    circle6.setVisibility(view.INVISIBLE);
-                }
-                hobby6.setText(hobby6String);
             }
 
             @Override

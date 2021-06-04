@@ -47,20 +47,16 @@ public class RegisterHobbies extends AppCompatActivity {
         editHobby2 = (EditText) findViewById(R.id.editHobby2);
         editHobby3 = (EditText) findViewById(R.id.editHobby3);
         editHobby4 = (EditText) findViewById(R.id.editHobby4);
-        editHobby5 = (EditText) findViewById(R.id.editHobby5);
-        editHobby6 = (EditText) findViewById(R.id.editHobby6);
     }
 
     //let user write down a maximum of 6 and a minimum of 1 hobbies
     private void submitHobby(){
-        String hobby1, hobby2, hobby3, hobby4, hobby5, hobby6;
+        String hobby1, hobby2, hobby3, hobby4;
 
         hobby1 = editHobby1.getText().toString().trim();
         hobby2 = editHobby2.getText().toString().trim();
         hobby3 = editHobby3.getText().toString().trim();
         hobby4 = editHobby4.getText().toString().trim();
-        hobby5 = editHobby5.getText().toString().trim();
-        hobby6 = editHobby6.getText().toString().trim();
 
         if(hobby1.isEmpty()){
             editHobby1.setError("You need to add at least one hobby!");
@@ -87,18 +83,8 @@ public class RegisterHobbies extends AppCompatActivity {
             editHobby4.requestFocus();
             return;
         }
-        if(isDigit(hobby5)){
-            editHobby5.setError("Please only use letters!");
-            editHobby5.requestFocus();
-            return;
-        }
-        if(isDigit(hobby6)){
-            editHobby6.setError("Please only use letters!");
-            editHobby6.requestFocus();
-            return;
-        }
 
-        Hobbies hobbies = new Hobbies(hobby1, hobby2, hobby3, hobby4, hobby5, hobby6);
+        Hobbies hobbies = new Hobbies(hobby1, hobby2, hobby3, hobby4);
         FirebaseUser firebaseUser = mAuth.getCurrentUser();
         String id = firebaseUser.getUid();
         //push to database

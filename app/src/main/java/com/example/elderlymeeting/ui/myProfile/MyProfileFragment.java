@@ -33,8 +33,8 @@ public class MyProfileFragment extends Fragment {
     Button logoutBtn;
     View view;
 
-    ImageView profilePicture, circle2, circle3, circle4, circle5, circle6;
-    TextView fullName, age, email, bio, hobby1, hobby2, hobby3, hobby4, hobby5, hobby6;
+    ImageView profilePicture, circle2, circle3, circle4;
+    TextView fullName, age, email, bio, hobby1, hobby2, hobby3, hobby4;
 
     DatabaseReference databaseReference;
     private FirebaseAuth mAuth;
@@ -71,8 +71,6 @@ public class MyProfileFragment extends Fragment {
         hobby2 = (TextView) view.findViewById(R.id.hobby2);
         hobby3 = (TextView) view.findViewById(R.id.hobby3);
         hobby4 = (TextView) view.findViewById(R.id.hobby4);
-        hobby5 = (TextView) view.findViewById(R.id.hobby5);
-        hobby6 = (TextView) view.findViewById(R.id.hobby6);
 
         //show the current users profile
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -128,22 +126,6 @@ public class MyProfileFragment extends Fragment {
                     circle4.setVisibility(view.VISIBLE);
                 }
                 hobby4.setText(hobby4String);
-
-                String hobby5String = snapshot.child(myId).child("hobbys").child("hobby5").getValue(String.class);
-                circle5 = (ImageView) view.findViewById(R.id.circle5);
-                assert hobby5String != null;
-                if(!hobby5String.isEmpty()){
-                    circle5.setVisibility(view.VISIBLE);
-                }
-                hobby5.setText(hobby5String);
-
-                String hobby6String = snapshot.child(myId).child("hobbys").child("hobby6").getValue(String.class);
-                circle6 = (ImageView) view.findViewById(R.id.circle6);
-                assert hobby6String != null;
-                if(!hobby6String.isEmpty()){
-                    circle6.setVisibility(view.VISIBLE);
-                }
-                hobby6.setText(hobby6String);
             }
 
             @Override

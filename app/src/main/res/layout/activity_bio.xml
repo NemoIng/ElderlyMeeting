@@ -11,7 +11,7 @@
         android:id="@+id/bioEdit"
         android:layout_width="330dp"
         android:layout_height="298dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:ems="10"
         android:hint="Tell us something about yourself!"
         android:inputType="textPersonName"
@@ -48,9 +48,11 @@
         android:id="@+id/bioConfirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="50dp"
         android:text="Confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bioEdit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
