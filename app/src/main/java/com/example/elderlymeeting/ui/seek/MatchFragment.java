@@ -155,8 +155,8 @@ public class MatchFragment extends Fragment {
 
                                     }
                                 }
-
-                                //Collections.shuffle(IDs);
+                                //shuffles the list of users
+                                Collections.shuffle(IDs);
 
                                 idList = IDs.listIterator();
                                 if (idList.hasNext()){
