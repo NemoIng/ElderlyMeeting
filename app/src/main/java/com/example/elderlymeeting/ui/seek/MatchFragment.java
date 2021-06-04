@@ -145,13 +145,18 @@ public class MatchFragment extends Fragment {
                 friendsReference.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                        for (i=0; i<IDs.size(); i++) {
-                            for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
-                                if (Objects.equals(childDataSnapshot.getValue(), IDs.get(i))) {
-                                    IDs.remove(i);
-                                }
+                        if (snapshot.getChildrenCount() != (dataSnapshot.getChildrenCount()-1)) {
+                            for (i = 0; i < IDs.size(); i++) {
+                                for (DataSnapshot childDataSnapshot : snapshot.getChildren()) {
+                                    if (Objects.equals(childDataSnapshot.getValue(), IDs.get(i))) {
+                                        IDs.remove(i);
+                                    }
 
+                                }
                             }
+                        }
+                        else{
+                            IDs.clear();
                         }
                         //shuffles the list of users
                         Collections.shuffle(IDs);
