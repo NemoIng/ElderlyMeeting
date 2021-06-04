@@ -9,8 +9,8 @@
 
     <ListView
         android:id="@+id/messageList"
-        android:layout_width="match_parent"
-        android:layout_height="450dp"
+        android:layout_width="413dp"
+        android:layout_height="578dp"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -21,7 +21,7 @@
 
     <EditText
         android:id="@+id/messageInput"
-        android:layout_width="240dp"
+        android:layout_width="260dp"
         android:layout_height="50dp"
         android:layout_marginStart="15dp"
         android:layout_marginBottom="80dp"
@@ -37,11 +37,11 @@
         android:layout_alignParentEnd="true"
         android:layout_marginStart="250dp"
         android:layout_marginEnd="25dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="76dp"
         android:text="send"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/messageInput" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
